@@ -9,7 +9,7 @@ import Predict from "./pages/Predict";
 
 function App() {
   return (
-    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen text-slate-800 dark:text-stone-100 selection:bg-cyan-400 selection:text-slate-900">
+    <>
       <Navbar />
       <ScrollToTop />
       <Routes>
@@ -19,7 +19,7 @@ function App() {
         <Route path="/predict" element={<Predict />} />
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 

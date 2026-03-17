@@ -17,7 +17,6 @@ const ModuleCard = ({ title, description, Icon, colorClass }) => (
 export default function Header() {
     return (
         <section className="relative overflow-hidden bg-slate-50 dark:bg-slate-950 pt-16 pb-24">
-            {/* Decorative background blur (Ghibli vibe) */}
             <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-emerald-100/50 dark:bg-emerald-900/10 blur-[100px] rounded-full" />
             <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-sky-100/50 dark:bg-sky-900/10 blur-[100px] rounded-full" />
 
