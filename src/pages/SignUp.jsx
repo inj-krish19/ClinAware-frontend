@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 
 export default function SignUp() {
     return (
-        <div className="min-h-[80vh] flex justify-center items-center px-4 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+        <div className="min-h-[80vh] flex justify-center items-center px-4 py-12 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
             <div className="w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl shadow-emerald-200/20 dark:shadow-none rounded-3xl p-8 border border-slate-100 dark:border-slate-800">
 
                 <div className="text-center mb-8">
@@ -75,7 +75,7 @@ export default function SignUp() {
 
                 <p className="text-center mt-8 text-sm font-medium text-slate-500 dark:text-slate-400">
                     Already a member?
-                    <button className="text-emerald-600 dark:text-emerald-400 font-bold ml-1 hover:underline">Sign In</button>
+                    <button className="text-emerald-600 dark:text-emerald-400 font-bold ml-1 hover:cursor-pointer hover:scale-105 transition transition-ease-in" onClick={() => { window.location.href = '/signin' }}>Sign In</button>
                 </p>
             </div>
         </div>

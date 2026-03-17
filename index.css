@@ -3,3 +3,5 @@
 .input {
     @apply px-3 py-2 border rounded-md dark:bg-slate-700 dark:border-slate-600;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'; // Assuming you use react-router
 
 export default function SignIn() {
     return (
-        <div className="min-h-[80vh] flex justify-center items-center px-4 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+        <div className="min-h-[80vh] flex justify-center items-center px-4 py-12 bg-slate-50 dark:bg-slate-950 transition-colors duration-500 ">
             <div className="w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl shadow-sky-200/20 dark:shadow-none rounded-3xl p-8 border border-slate-100 dark:border-slate-800">
 
                 <div className="text-center mb-10">
@@ -35,7 +35,7 @@ export default function SignIn() {
                     <div className="group space-y-2">
                         <div className="flex justify-between items-center ml-1">
                             <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
-                            <a href="#" className="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline">Forgot?</a>
+                            <a href="#" className="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:cursor-pointer hover:scale-105 hover:font-bold transition">Forgot?</a>
                         </div>
                         <div className="flex items-center border-2 rounded-2xl px-4 py-3 bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 focus-within:border-sky-500 dark:focus-within:border-sky-400 transition-all">
                             <LuLock size={20} className="mr-3 text-slate-400 group-focus-within:text-sky-500" />
@@ -65,7 +65,7 @@ export default function SignIn() {
 
                 <p className="text-center mt-8 text-sm font-medium text-slate-500 dark:text-slate-400">
                     Don't have an account?
-                    <button className="text-sky-600 dark:text-sky-400 font-bold ml-1 hover:underline">Create one</button>
+                    <button className="text-sky-600 dark:text-sky-400 font-bold ml-1 hover:cursor-pointer hover:scale-105 transition transition-ease-in" onClick={() => { window.location.href = '/signup' }}>Create one</button>
                 </p>
             </div>
         </div>
