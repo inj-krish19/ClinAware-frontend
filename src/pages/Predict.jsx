@@ -210,27 +210,27 @@ export default function Predict() {
                             <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50 p-8 rounded-3xl">
                                 <h3 className="text-emerald-800 dark:text-emerald-400 font-bold text-xs uppercase tracking-widest mb-4">Results </h3>
                                 <div className="space-y-6">
-                                    <div>
+                                    {result.cost.regressor && <div>
                                         <p className="text-slate-600 dark:text-emerald-300/70 text-sm">Regressor Prediction (Trusted)</p>
                                         <p className="text-4xl font-black text-emerald-700 dark:text-emerald-400">
                                             {result.cost.regressor.toFixed(2)}
                                             <span className="text-lg"> INR/month</span>
                                         </p>
-                                    </div>
-                                    <div>
+                                    </div>}
+                                    {result.cost.model && <div>
                                         <p className="text-slate-600 dark:text-emerald-300/70 text-sm">Model Prediction (Beta)</p>
                                         <p className="text-4xl font-black text-emerald-700 dark:text-emerald-400">
                                             {result.cost.model.toFixed(2)}
                                             <span className="text-lg"> INR/month</span>
                                         </p>
-                                    </div>
-                                    <div>
+                                    </div>}
+                                    {result.cost.nn && <div>
                                         <p className="text-slate-600 dark:text-emerald-300/70 text-sm">Neural Network Prediction (Alpha)</p>
                                         <p className="text-4xl font-black text-emerald-700 dark:text-emerald-400">
                                             {result.cost.nn.toFixed(2)}
                                             <span className="text-lg"> INR/month</span>
                                         </p>
-                                    </div>
+                                    </div>}
                                     <div className="bg-white/50 dark:bg-emerald-900/20 p-4 rounded-2xl flex items-center gap-3 mt-3">
                                         <LuShield className="text-emerald-600 shrink-0 " />
                                         <p className="text-xs text-emerald-900/70 dark:text-emerald-400/70">
