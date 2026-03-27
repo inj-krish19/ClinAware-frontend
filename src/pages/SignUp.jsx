@@ -1,83 +1,111 @@
 import React from 'react';
-import { LuUser, LuMail, LuLock, LuShieldCheck } from "react-icons/lu";
+import { motion } from 'framer-motion';
+import { LuUser, LuMail, LuLock, LuShieldCheck, LuGlobe, LuCalendar, LuArrowRight } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
 
 export default function SignUp() {
     return (
-        <div className="min-h-[80vh] flex justify-center items-center px-4 py-12 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
-            <div className="w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl shadow-emerald-200/20 dark:shadow-none rounded-3xl p-8 border border-slate-100 dark:border-slate-800">
+        // Adjusted background to match our new deep midnight theme (#020617)
+        <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#020617] transition-colors duration-500">
 
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                        Create Account
+            {/* Background Glows for Depth */}
+            <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+                <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-emerald-500/10 blur-[100px] rounded-full" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-sky-500/10 blur-[100px] rounded-full" />
+            </div>
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full max-w-lg bg-white dark:bg-slate-900/60 backdrop-blur-xl shadow-2xl rounded-[2.5rem] p-8 md:p-12 border border-slate-200 dark:border-slate-800"
+            >
+                <div className="text-center mb-10">
+                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
+                        Join ClinAware
                     </h2>
-                    <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
-                        Join the ClinAware health ecosystem
+                    <p className="text-slate-500 dark:text-slate-300 font-medium">
+                        Start your journey toward <span className="text-emerald-500 font-bold">intelligent</span> health management.
                     </p>
                 </div>
 
-                <div className="space-y-4">
-                    {/* Full Name Input */}
-                    <div className="group space-y-1">
-                        <label className="text-xs font-bold text-slate-500 dark:text-slate-400 ml-1 uppercase">Full Name</label>
-                        <div className="flex items-center border-2 rounded-2xl px-4 py-3 bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 focus-within:border-emerald-500 dark:focus-within:border-emerald-400 transition-all">
-                            <LuUser size={20} className="mr-3 text-slate-400 group-focus-within:text-emerald-500" />
-                            <input
-                                type="text"
-                                placeholder="Enter your name"
-                                className="bg-transparent w-full outline-none text-slate-900 dark:text-white"
-                            />
+
+                {/* --- MANUAL FORM --- */}
+                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {/* Name */}
+                        <div className="space-y-1.5">
+                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Full Name</label>
+                            <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
+                                <LuUser size={18} className="mr-3 text-slate-400" />
+                                <input type="text" placeholder="Krish" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
+                            </div>
+                        </div>
+                        {/* Age - Added as per our discussion */}
+                        <div className="space-y-1.5">
+                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Age</label>
+                            <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
+                                <LuCalendar size={18} className="mr-3 text-slate-400" />
+                                <input type="number" placeholder="20" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
+                            </div>
                         </div>
                     </div>
 
-                    {/* Email Input */}
-                    <div className="group space-y-1">
-                        <label className="text-xs font-bold text-slate-500 dark:text-slate-400 ml-1 uppercase">Email Address</label>
-                        <div className="flex items-center border-2 rounded-2xl px-4 py-3 bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 focus-within:border-emerald-500 dark:focus-within:border-emerald-400 transition-all">
-                            <LuMail size={20} className="mr-3 text-slate-400 group-focus-within:text-emerald-500" />
-                            <input
-                                type="email"
-                                placeholder="email@example.com"
-                                className="bg-transparent w-full outline-none text-slate-900 dark:text-white"
-                            />
+                    {/* Email */}
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Email Address</label>
+                        <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
+                            <LuMail size={18} className="mr-3 text-slate-400" />
+                            <input type="email" placeholder="krish@gmail.com" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
                         </div>
                     </div>
 
-                    {/* Password Input */}
-                    <div className="group space-y-1">
-                        <label className="text-xs font-bold text-slate-500 dark:text-slate-400 ml-1 uppercase">Password</label>
-                        <div className="flex items-center border-2 rounded-2xl px-4 py-3 bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 focus-within:border-emerald-500 dark:focus-within:border-emerald-400 transition-all">
-                            <LuLock size={20} className="mr-3 text-slate-400 group-focus-within:text-emerald-500" />
-                            <input
-                                type="password"
-                                placeholder="Create a strong password"
-                                className="bg-transparent w-full outline-none text-slate-900 dark:text-white"
-                            />
+                    {/* Password */}
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Password</label>
+                        <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
+                            <LuLock size={18} className="mr-3 text-slate-400" />
+                            <input type="password" placeholder="••••••••" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
                         </div>
                     </div>
 
-                    <button className="w-full flex justify-center items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-emerald-200/40 dark:shadow-none active:scale-[0.98] mt-4">
+                    <button className="w-full flex justify-center items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black py-4 rounded-2xl transition-all shadow-xl shadow-emerald-500/20 active:scale-[0.98] mt-6">
                         <LuShieldCheck size={20} />
-                        Register Now
+                        Submit
                     </button>
+                </form>
 
-                    <div className="flex items-center gap-4 my-4">
-                        <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
-                        <span className="text-xs font-bold text-slate-400 uppercase">Or</span>
-                        <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
-                    </div>
-
-                    <button className="w-full flex items-center justify-center gap-3 border-2 border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-2xl transition-all active:scale-[0.98]">
-                        <FcGoogle size={22} />
-                        Join with Google
-                    </button>
-                </div>
-
-                <p className="text-center mt-8 text-sm font-medium text-slate-500 dark:text-slate-400">
+                <p className="flex justify-center mt-10 text-sm font-bold text-slate-500 dark:text-slate-400 transition-all">
                     Already a member?
-                    <button className="text-emerald-600 dark:text-emerald-400 font-bold ml-1 hover:cursor-pointer hover:scale-105 transition transition-ease-in" onClick={() => { window.location.href = '/signin' }}>Sign In</button>
+                    <button
+                        className="flex flex-row justify-center gap-2 items-center  text-emerald-500 dark:text-emerald-400 ml-2 hover:scale-105 transition-all"
+                        onClick={() => { window.location.href = '/signin' }}
+                    >
+                        Sign In <LuArrowRight />
+                    </button>
                 </p>
+
+                <p className="text-center mt-2 text-sm font-medium text-slate-500 dark:text-slate-400">
+                    By signing up, you agree to our
+                    <button className="text-slate-900 dark:text-white no-underline ml-1 hover:text-emerald-500 transition-colors">Data Privacy Policy</button>
+                </p>
+            </motion.div>
+
+            {/* Benefit Bar (Serious Trust Signals) */}
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-lg w-full">
+                <div className="flex items-center gap-3 text-slate-400">
+                    <LuShieldCheck className="text-emerald-500" />
+                    <span className="text-xs font-bold uppercase tracking-tighter">Secure Data</span>
+                </div>
+                <div className="flex items-center gap-3 text-slate-400">
+                    <LuGlobe className="text-sky-500" />
+                    <span className="text-xs font-bold uppercase tracking-tighter">Encrypted Cloud</span>
+                </div>
+                <div className="flex items-center gap-3 text-slate-400">
+                    <LuUser className="text-purple-500" />
+                    <span className="text-xs font-bold uppercase tracking-tighter">User Controlled</span>
+                </div>
             </div>
+
         </div>
     );
 }

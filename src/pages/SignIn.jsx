@@ -1,71 +1,101 @@
 import React from 'react';
-import { LuMail, LuLock, LuArrowRight } from "react-icons/lu";
+import { motion } from 'framer-motion';
+import { LuMail, LuLock, LuArrowRight, LuActivity } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from 'react-router-dom'; // Assuming you use react-router
 
 export default function SignIn() {
     return (
-        <div className="min-h-[80vh] flex justify-center items-center px-4 py-12 bg-slate-50 dark:bg-slate-950 transition-colors duration-500 ">
-            <div className="w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl shadow-sky-200/20 dark:shadow-none rounded-3xl p-8 border border-slate-100 dark:border-slate-800">
+        <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#020617] transition-colors duration-500">
+
+            {/* Consistent Background Glows */}
+            <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+                <div className="absolute top-[-5%] left-[-5%] w-80 h-80 bg-sky-500/10 blur-[100px] rounded-full" />
+                <div className="absolute bottom-[-5%] right-[-5%] w-80 h-80 bg-blue-500/10 blur-[100px] rounded-full" />
+            </div>
+
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="w-full max-w-md bg-white dark:bg-slate-900/60 backdrop-blur-xl shadow-2xl rounded-[2.5rem] p-8 md:p-10 border border-slate-200 dark:border-slate-800"
+            >
+                {/* Logo or Brand Icon */}
+                <div className="flex justify-center mb-6">
+                    <div className="w-12 h-12 rounded-2xl bg-sky-500/10 flex items-center justify-center text-sky-500">
+                        <LuActivity size={28} />
+                    </div>
+                </div>
 
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                         Welcome Back
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
-                        Log in to access your health insights
+                        Access your <span className="text-sky-500">ClinAware</span> dashboard
                     </p>
                 </div>
 
                 <div className="space-y-5">
+                    {/* Google Login (Fast path) */}
+                    <button className="group w-full flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-2xl transition-all active:scale-[0.98] shadow-sm">
+                        <FcGoogle size={22} className="group-hover:scale-110 transition-transform" />
+                        Continue with Google
+                    </button>
+
+                    <div className="flex items-center gap-4 py-2">
+                        <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">or email</span>
+                        <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
+                    </div>
+
                     {/* Email Input */}
-                    <div className="group space-y-2">
-                        <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Email Address</label>
-                        <div className="flex items-center border-2 rounded-2xl px-4 py-3 bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 focus-within:border-sky-500 dark:focus-within:border-sky-400 transition-all">
-                            <LuMail size={20} className="mr-3 text-slate-400 group-focus-within:text-sky-500" />
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Email Address</label>
+                        <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-sky-500/20 focus-within:border-sky-500 transition-all">
+                            <LuMail size={18} className="mr-3 text-slate-400" />
                             <input
                                 type="email"
                                 placeholder="name@example.com"
-                                className="bg-transparent w-full outline-none text-slate-900 dark:text-white placeholder:text-slate-400"
+                                className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium"
                             />
                         </div>
                     </div>
 
                     {/* Password Input */}
-                    <div className="group space-y-2">
-                        <div className="flex justify-between items-center ml-1">
-                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
-                            <a href="#" className="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:cursor-pointer hover:scale-105 hover:font-bold transition">Forgot?</a>
+                    <div className="space-y-1.5">
+                        <div className="flex justify-between items-end mb-1">
+                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Password</label>
+                            <button className="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline">Forgot password?</button>
                         </div>
-                        <div className="flex items-center border-2 rounded-2xl px-4 py-3 bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 focus-within:border-sky-500 dark:focus-within:border-sky-400 transition-all">
-                            <LuLock size={20} className="mr-3 text-slate-400 group-focus-within:text-sky-500" />
+                        <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-sky-500/20 focus-within:border-sky-500 transition-all">
+                            <LuLock size={18} className="mr-3 text-slate-400" />
                             <input
                                 type="password"
                                 placeholder="••••••••"
-                                className="bg-transparent w-full outline-none text-slate-900 dark:text-white placeholder:text-slate-400"
+                                className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium"
                             />
                         </div>
                     </div>
 
-                    <button className="w-full flex justify-center items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-sky-200 dark:shadow-none active:scale-[0.98]">
+                    <button className="w-full flex justify-center items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-black py-4 rounded-2xl transition-all shadow-xl shadow-sky-500/20 active:scale-[0.98] mt-4">
                         Sign In <LuArrowRight size={18} />
-                    </button>
-
-                    <div className="flex items-center gap-4 my-6">
-                        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-800"></div>
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Or continue with</span>
-                        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-800"></div>
-                    </div>
-
-                    <button className="w-full flex items-center justify-center gap-3 border-2 border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-2xl transition-all active:scale-[0.98]">
-                        <FcGoogle size={22} />
-                        Google
                     </button>
                 </div>
 
-                <p className="text-center mt-8 text-sm font-medium text-slate-500 dark:text-slate-400">
-                    Don't have an account?
-                    <button className="text-sky-600 dark:text-sky-400 font-bold ml-1 hover:cursor-pointer hover:scale-105 transition transition-ease-in" onClick={() => { window.location.href = '/signup' }}>Create one</button>
+                <p className="flex justify-center text-center mt-10 text-sm font-medium text-slate-500 dark:text-slate-400">
+                    Don't have a profile yet?
+                    <button
+                        className="flex flex-row justify-center gap-2 items-center text-sky-600 dark:text-sky-400 font-bold ml-2 hover:underline underline-offset-4 transition-all"
+                        onClick={() => { window.location.href = '/signup' }}
+                    >
+                        Create one <LuArrowRight />
+                    </button>
+                </p>
+            </motion.div>
+
+            {/* Serious Context Hint */}
+            <div className="mt-8 text-center max-w-xs">
+                <p className="text-[11px] text-slate-400 font-medium leading-relaxed">
+                    By logging in, you are accessing a secure medical environment. Please ensure you are on a private connection.
                 </p>
             </div>
         </div>
