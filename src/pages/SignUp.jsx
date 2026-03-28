@@ -1,12 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { LuUser, LuMail, LuLock, LuShieldCheck, LuGlobe, LuCalendar, LuArrowRight } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
+import Notify from '../components/Notify';
 
 export default function SignUp() {
+
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+
+    const [password, setPassword] = useState('');
+    const [notification, setNotification] = useState(null);
+
+    const submitForm = async (e) => {
+
+        e.preventDefault();
+
+        let res = await fetch(`${BACKEND_URL}/auth/user`, {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                name, email, password
+            }),
+            credentials: "include"
+        });
+
+        let response = await res.json();
+        setNotification({
+            status: res.status,
+            message: response?.message
+        })
+
+        if (res.status === 200) {
+            setTimeout(() => {
+                window.location.href = '/success'
+            }, 3000);
+        }
+
+    }
+
     return (
         // Adjusted background to match our new deep midnight theme (#020617)
         <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#020617] transition-colors duration-500">
+
+
+            <Notify details={notification} onClose={() => { setNotification(null); }} />
 
             {/* Background Glows for Depth */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
@@ -30,22 +72,14 @@ export default function SignUp() {
 
 
                 {/* --- MANUAL FORM --- */}
-                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <form className="space-y-5" onSubmit={(e) => submitForm(e)}>
+                    <div className="grid grid-cols-1  gap-5">
                         {/* Name */}
                         <div className="space-y-1.5">
                             <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Full Name</label>
                             <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
                                 <LuUser size={18} className="mr-3 text-slate-400" />
-                                <input type="text" placeholder="Krish" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
-                            </div>
-                        </div>
-                        {/* Age - Added as per our discussion */}
-                        <div className="space-y-1.5">
-                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Age</label>
-                            <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
-                                <LuCalendar size={18} className="mr-3 text-slate-400" />
-                                <input type="number" placeholder="20" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
+                                <input type="text" placeholder="John" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" value={name} onChange={(e) => setName(e.target.value)} />
                             </div>
                         </div>
                     </div>
@@ -55,7 +89,7 @@ export default function SignUp() {
                         <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Email Address</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
                             <LuMail size={18} className="mr-3 text-slate-400" />
-                            <input type="email" placeholder="krish@gmail.com" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
+                            <input type="email" placeholder="john@gmail.com" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                     </div>
 
@@ -64,7 +98,7 @@ export default function SignUp() {
                         <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Password</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
                             <LuLock size={18} className="mr-3 text-slate-400" />
-                            <input type="password" placeholder="••••••••" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" />
+                            <input type="password" placeholder="••••••••" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
                     </div>
 
@@ -106,6 +140,6 @@ export default function SignUp() {
                 </div>
             </div>
 
-        </div>
+        </div >
     );
 }

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { LuMail, LuLock, LuArrowRight, LuActivity } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
+import Notify from '../components/Notify';
 
 export default function SignIn() {
 
@@ -10,8 +11,45 @@ export default function SignIn() {
     const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const GOOGLE_REDIRECT_URI = BACKEND_URL + import.meta.env.VITE_GOOGLE_REDIRECT_URI;
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [notification, setNotification] = useState(null);
+
+
+    const submitForm = async (e) => {
+
+        e.preventDefault();
+
+        let res = await fetch(`${BACKEND_URL}/auth/signin`, {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                email, password
+            }),
+            credentials: "include"
+        });
+
+        let response = await res.json();
+        setNotification({
+            status: res.status,
+            message: response?.message
+        })
+
+        if (res.status === 200) {
+            setTimeout(() => {
+                window.location.href = '/success'
+            }, 3000);
+        }
+
+    }
+
     return (
         <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#020617] transition-colors duration-500">
+
+
+            <Notify details={notification} onClose={() => { setNotification(null); }} />
 
             {/* Consistent Background Glows */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
@@ -64,6 +102,7 @@ export default function SignIn() {
                                 type="email"
                                 placeholder="name@example.com"
                                 className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium"
+                                value={email} onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                     </div>
@@ -80,11 +119,12 @@ export default function SignIn() {
                                 type="password"
                                 placeholder="••••••••"
                                 className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium"
+                                value={password} onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                     </div>
 
-                    <button className="w-full flex justify-center items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-black py-4 rounded-2xl transition-all shadow-xl shadow-sky-500/20 active:scale-[0.98] mt-4">
+                    <button className="w-full flex justify-center items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-black py-4 rounded-2xl transition-all shadow-xl shadow-sky-500/20 active:scale-[0.98] mt-4" onClick={(e) => submitForm(e)}>
                         Sign In <LuArrowRight size={18} />
                     </button>
                 </div>
