@@ -80,7 +80,7 @@ export default function Predict() {
                     <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
                         Insurance <span className="text-sky-500">Cost Intelligence</span>
                     </h2>
-                    <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium">Precision financial forecasting using Random Forest Regression</p>
+                    <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium">Precision financial forecasting using Machine Learning</p>
                 </div>
 
                 {/* Error Handling */}
@@ -234,13 +234,13 @@ export default function Predict() {
                                         <div className="grid grid-cols-2 gap-3">
                                             {result.cost.model && (
                                                 <div className="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl">
-                                                    <p className="text-[9px] font-black text-slate-400 uppercase">Beta Model</p>
+                                                    <p className="text-[9px] font-black text-slate-400 uppercase">Beta Model (LR)</p>
                                                     <p className="text-sm font-bold dark:text-white">₹{result.cost.model.toFixed(0)}</p>
                                                 </div>
                                             )}
                                             {result.cost.nn && (
                                                 <div className="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl">
-                                                    <p className="text-[9px] font-black text-slate-400 uppercase">Neural Net</p>
+                                                    <p className="text-[9px] font-black text-slate-400 uppercase">Alpha Model (NN)</p>
                                                     <p className="text-sm font-bold dark:text-white">₹{result.cost.nn.toFixed(0)}</p>
                                                 </div>
                                             )}

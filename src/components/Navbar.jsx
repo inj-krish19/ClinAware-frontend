@@ -5,25 +5,36 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Navbar() {
+
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
     const { dark, toggleTheme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Defaulted to true as requested
-    const [user, setUser] = useState(null);
     const location = useLocation();
 
     // 1. Check Auth Status from Backend
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await axios.get('/auth/me');
-                // Assuming backend returns { authenticated: true, user: { name: 'Krish' } }
-                setIsAuthenticated(res.data.authenticated);
-                setUser(res.data.user);
+                const res = await fetch(`${BACKEND_URL}/auth/me`, {
+                    method: 'POST',
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    credentials: "include"
+                });
+
+                let response = await res.json();
+                console.log(response)
+                console.log(Boolean(response.authenticated));
+
+                setIsAuthenticated(Boolean(response.authenticated || false));
             } catch (err) {
                 setIsAuthenticated(false); // Set to false if route fails
             }
         };
-        // checkAuth(); // Uncomment this when your backend route is ready
+        checkAuth(); // Uncomment this when your backend route is ready
     }, []);
 
     const navLinks = [
