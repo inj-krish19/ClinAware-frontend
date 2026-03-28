@@ -4,6 +4,12 @@ import { LuMail, LuLock, LuArrowRight, LuActivity } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
 
 export default function SignIn() {
+
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+    const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const GOOGLE_REDIRECT_URI = BACKEND_URL + import.meta.env.VITE_GOOGLE_REDIRECT_URI;
+
     return (
         <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#020617] transition-colors duration-500">
 
@@ -36,7 +42,9 @@ export default function SignIn() {
 
                 <div className="space-y-5">
                     {/* Google Login (Fast path) */}
-                    <button className="group w-full flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-2xl transition-all active:scale-[0.98] shadow-sm">
+                    <button className="group w-full flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-2xl transition-all active:scale-[0.98] shadow-sm" onClick={() => {
+                        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&access_type=offline&redirect_uri=${encodeURIComponent(GOOGLE_REDIRECT_URI)}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email`;
+                    }}>
                         <FcGoogle size={22} className="group-hover:scale-110 transition-transform" />
                         Continue with Google
                     </button>
