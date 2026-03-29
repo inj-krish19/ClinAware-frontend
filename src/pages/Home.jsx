@@ -6,7 +6,6 @@ import {
 } from 'react-icons/lu';
 
 export default function Home() {
-    // State to drive the interactive module showcase section
     const [activeTab, setActiveTab] = useState('insurance');
 
     const modules = {
@@ -42,14 +41,11 @@ export default function Home() {
     return (
         <main className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-[#030712] transition-colors duration-500 font-sans selection:bg-sky-500 selection:text-white">
 
-            {/* Cinematic Background Glows */}
             <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-sky-500/10 dark:bg-sky-500/10 blur-[150px] rounded-full animate-pulse" />
             <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-emerald-500/10 dark:bg-emerald-500/5 blur-[120px] rounded-full" />
 
-            {/* --- HERO SECTION --- */}
             <section className="relative max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-16 flex flex-col items-center">
 
-                {/* Micro-Interaction Badge */}
                 <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-sky-500/30 text-sky-700 dark:text-sky-300 text-xs font-semibold mb-8 shadow-lg shadow-sky-500/5 hover:scale-105 transition-transform cursor-pointer">
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
@@ -58,7 +54,6 @@ export default function Home() {
                     <span>Intelligent Healthcare Intelligence </span>
                 </div>
 
-                {/* Scaled-down realistic typography */}
                 <h1 className="max-w-4xl text-center text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
                     Predictive Insights for a<br className="hidden md:block" />
                     <span className="bg-gradient-to-r from-sky-500 via-blue-500 to-emerald-500 bg-clip-text text-transparent">
@@ -71,7 +66,6 @@ export default function Home() {
                     Machine Learning and Computer Vision and Web Automation.
                 </p>
 
-                {/* Dynamic buttons with hover states */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
                     <Link to="/predict" className="group w-full sm:w-auto px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold shadow-lg shadow-sky-500/20 transition-all hover:-translate-y-0.5 active:translate-y-0 text-center flex items-center justify-center gap-2">
                         Launch Dashboard <LuLayoutDashboard size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -82,7 +76,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* --- METRICS / QUICK STATS SECTION --- */}
             <section className="relative max-w-5xl mx-auto px-6 mb-24">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl p-8">
                     <div className="flex flex-col items-center md:items-start p-4">
@@ -100,7 +93,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* --- INTERACTIVE SHOWCASE SECTION --- */}
             <section id="explore-modules" className="relative max-w-7xl mx-auto px-6 py-16 mb-24">
                 <div className="text-center mb-12">
                     <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
@@ -111,7 +103,6 @@ export default function Home() {
                     </p>
                 </div>
 
-                {/* Tab Switcher */}
                 <div className="flex justify-center flex-wrap gap-2 md:gap-4 mb-12">
                     {Object.keys(modules).map((key) => {
                         const module = modules[key];
@@ -134,10 +125,8 @@ export default function Home() {
                     })}
                 </div>
 
-                {/* Interactive Dynamic Display Panel */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xl items-center min-h-[400px]">
 
-                    {/* Content Side (7 Cols) */}
                     <div className="lg:col-span-7 space-y-6">
                         <div className="space-y-2">
                             <span className="text-xs font-bold tracking-widest text-sky-600 dark:text-sky-400 uppercase">
@@ -168,12 +157,10 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* Visual UI Preview Side (5 Cols) */}
                     <div className="lg:col-span-5 flex justify-center items-center">
                         <div className="w-full max-w-sm h-72 rounded-2xl bg-slate-100 dark:bg-slate-800 flex flex-col items-center justify-center p-8 relative overflow-hidden border border-slate-200 dark:border-slate-700 group cursor-pointer">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 blur-2xl rounded-full group-hover:bg-sky-500/20 transition-all duration-700" />
 
-                            {/* Rendering dynamic visual based on active tab */}
                             {activeTab === 'skin' && (
                                 <div className="text-center flex flex-col items-center space-y-4">
                                     <div className="w-16 h-16 rounded-full bg-sky-100 dark:bg-sky-500/20 flex items-center justify-center text-sky-600 dark:text-sky-400 text-3xl animate-bounce">
@@ -217,7 +204,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* --- CALL TO ACTION (CTA) FOOTER SECTION --- */}
             <section className="relative max-w-6xl mx-auto px-6 pb-24">
                 <div className="mt-32 w-full bg-gradient-to-br from-white to-slate-100 dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 rounded-[3rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 shadow-2xl">
                     <div className="text-center md:text-left">

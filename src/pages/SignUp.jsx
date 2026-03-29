@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { LuUser, LuMail, LuLock, LuShieldCheck, LuGlobe, LuCalendar, LuArrowRight } from "react-icons/lu";
-import { FcGoogle } from "react-icons/fc";
 import Notify from '../components/Notify';
+import { BACKEND_URL } from '../context/constants';
 
 export default function SignUp() {
-
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -44,13 +42,11 @@ export default function SignUp() {
     }
 
     return (
-        // Adjusted background to match our new deep midnight theme (#020617)
         <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#020617] transition-colors duration-500">
 
 
             <Notify details={notification} onClose={() => { setNotification(null); }} />
 
-            {/* Background Glows for Depth */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
                 <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-emerald-500/10 blur-[100px] rounded-full" />
                 <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-sky-500/10 blur-[100px] rounded-full" />
@@ -71,10 +67,8 @@ export default function SignUp() {
                 </div>
 
 
-                {/* --- MANUAL FORM --- */}
                 <form className="space-y-5" onSubmit={(e) => submitForm(e)}>
                     <div className="grid grid-cols-1  gap-5">
-                        {/* Name */}
                         <div className="space-y-1.5">
                             <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Full Name</label>
                             <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
@@ -84,7 +78,6 @@ export default function SignUp() {
                         </div>
                     </div>
 
-                    {/* Email */}
                     <div className="space-y-1.5">
                         <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Email Address</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
@@ -93,7 +86,6 @@ export default function SignUp() {
                         </div>
                     </div>
 
-                    {/* Password */}
                     <div className="space-y-1.5">
                         <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Password</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
@@ -124,7 +116,6 @@ export default function SignUp() {
                 </p>
             </motion.div>
 
-            {/* Benefit Bar (Serious Trust Signals) */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-lg w-full">
                 <div className="flex items-center gap-3 text-slate-400">
                     <LuShieldCheck className="text-emerald-500" />

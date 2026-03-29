@@ -3,10 +3,9 @@ import { motion } from 'framer-motion';
 import { LuMail, LuLock, LuArrowRight, LuActivity } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
 import Notify from '../components/Notify';
+import { BACKEND_URL } from '../context/constants';
 
 export default function SignIn() {
-
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const GOOGLE_REDIRECT_URI = BACKEND_URL + import.meta.env.VITE_GOOGLE_REDIRECT_URI;
@@ -51,7 +50,6 @@ export default function SignIn() {
 
             <Notify details={notification} onClose={() => { setNotification(null); }} />
 
-            {/* Consistent Background Glows */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
                 <div className="absolute top-[-5%] left-[-5%] w-80 h-80 bg-sky-500/10 blur-[100px] rounded-full" />
                 <div className="absolute bottom-[-5%] right-[-5%] w-80 h-80 bg-blue-500/10 blur-[100px] rounded-full" />
@@ -62,7 +60,6 @@ export default function SignIn() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="w-full max-w-md bg-white dark:bg-slate-900/60 backdrop-blur-xl shadow-2xl rounded-[2.5rem] p-8 md:p-10 border border-slate-200 dark:border-slate-800"
             >
-                {/* Logo or Brand Icon */}
                 <div className="flex justify-center mb-6">
                     <div className="w-12 h-12 rounded-2xl bg-sky-500/10 flex items-center justify-center text-sky-500">
                         <LuActivity size={28} />
@@ -79,7 +76,6 @@ export default function SignIn() {
                 </div>
 
                 <div className="space-y-5">
-                    {/* Google Login (Fast path) */}
                     <button className="group w-full flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-2xl transition-all active:scale-[0.98] shadow-sm" onClick={() => {
                         window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&access_type=offline&redirect_uri=${encodeURIComponent(GOOGLE_REDIRECT_URI)}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email`;
                     }}>
@@ -93,7 +89,6 @@ export default function SignIn() {
                         <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
                     </div>
 
-                    {/* Email Input */}
                     <div className="space-y-1.5">
                         <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Email Address</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-sky-500/20 focus-within:border-sky-500 transition-all">
@@ -107,7 +102,6 @@ export default function SignIn() {
                         </div>
                     </div>
 
-                    {/* Password Input */}
                     <div className="space-y-1.5">
                         <div className="flex justify-between items-end mb-1">
                             <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Password</label>
@@ -140,7 +134,6 @@ export default function SignIn() {
                 </p>
             </motion.div>
 
-            {/* Serious Context Hint */}
             <div className="mt-8 text-center max-w-xs">
                 <p className="text-[11px] text-slate-400 font-medium leading-relaxed">
                     By logging in, you are accessing a secure medical environment. Please ensure you are on a private connection.

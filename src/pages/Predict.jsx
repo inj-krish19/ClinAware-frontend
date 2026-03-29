@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LuCalculator, LuUser, LuBaby, LuActivity, LuInfo, LuLoader, LuShield, LuFingerprint } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
+import { BACKEND_URL } from '../context/constants';
 
 export default function Predict() {
-    // 1. Updated form state to include 'name' for a personalized report
+
     const [form, setForm] = useState({
-        name: "", // Added name field
+        name: "",
         age: "",
         bmi: "",
         children: "0",
@@ -18,14 +19,12 @@ export default function Predict() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
     };
 
-    // 2. Client-side Validation Logic
     const validateForm = () => {
         if (!form.name.trim()) return "Please enter the patient's name.";
         if (Number(form.age) <= 0 || Number(form.age) > 120) return "Please enter a valid age (1-120).";
@@ -37,7 +36,6 @@ export default function Predict() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Run validation
         const validationError = validateForm();
         if (validationError) {
             setError(validationError);
@@ -60,10 +58,8 @@ export default function Predict() {
             });
             setResult(res.data);
         } catch (err) {
-            console.error("Prediction failed:", err);
-            setError(`Connection Error: Ensure the Flask server is running at ${BACKEND_URL}`);
+            setError(`Please wait a moment till insights are generated`);
         } finally {
-            // Keep loading for 1.5s for visual consistency with 'Neural Inference' animation
             setTimeout(() => setLoading(false), 1500);
         }
     };
@@ -72,7 +68,6 @@ export default function Predict() {
         <div className="min-h-screen bg-slate-50 dark:bg-[#020617] py-16 px-4 transition-colors duration-500">
             <div className="max-w-5xl mx-auto">
 
-                {/* Header */}
                 <div className="flex flex-col items-center text-center mb-10">
                     <div className="w-16 h-16 bg-sky-500/10 text-sky-500 rounded-2xl flex items-center justify-center mb-4 border border-sky-500/20">
                         <LuCalculator size={32} />
@@ -83,7 +78,6 @@ export default function Predict() {
                     <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium">Precision financial forecasting using Machine Learning</p>
                 </div>
 
-                {/* Error Handling */}
                 <div className="min-h-[50px] mb-4">
                     {error && (
                         <div className="flex justify-center items-center gap-3 px-4 py-3 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 max-w-2xl mx-auto">
@@ -97,12 +91,10 @@ export default function Predict() {
                 </div>
 
                 <div className="grid lg:grid-cols-5 gap-8 items-start">
-                    {/* Form Section */}
                     <form
                         onSubmit={handleSubmit}
                         className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-5 bg-white dark:bg-slate-900 p-8 rounded-[2rem] shadow-xl border border-slate-100 dark:border-slate-800"
                     >
-                        {/* Name Field - NEW */}
                         <div className="md:col-span-2 space-y-1.5">
                             <label className="flex items-center gap-2 text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase">
                                 <LuFingerprint size={14} /> Full Name / Patient ID
@@ -118,7 +110,6 @@ export default function Predict() {
                             />
                         </div>
 
-                        {/* Age */}
                         <div className="space-y-1.5">
                             <label className="flex items-center gap-2 text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase">
                                 <LuUser size={14} /> Age
@@ -126,7 +117,6 @@ export default function Predict() {
                             <input type="number" name="age" required placeholder="25" value={form.age} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-sky-500 outline-none dark:text-white transition-all" />
                         </div>
 
-                        {/* BMI */}
                         <div className="space-y-1.5">
                             <label className="flex items-center gap-2 text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase">
                                 <LuActivity size={14} /> BMI
@@ -134,7 +124,6 @@ export default function Predict() {
                             <input type="number" step="0.1" name="bmi" required placeholder="22.5" value={form.bmi} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-sky-500 outline-none dark:text-white transition-all" />
                         </div>
 
-                        {/* Children */}
                         <div className="space-y-1.5">
                             <label className="flex items-center gap-2 text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase">
                                 <LuBaby size={14} /> Children
@@ -142,7 +131,6 @@ export default function Predict() {
                             <input type="number" name="children" value={form.children} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-sky-500 outline-none dark:text-white transition-all" />
                         </div>
 
-                        {/* Dropdowns */}
                         <div className="space-y-1.5">
                             <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase">Sex</label>
                             <select name="sex" value={form.sex} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-sky-500 outline-none dark:text-white transition-all">
@@ -177,7 +165,6 @@ export default function Predict() {
                         </button>
                     </form>
 
-                    {/* Result Sidebar */}
                     <div className="lg:col-span-2 space-y-6 sticky top-8">
                         {loading && (
                             /* Keeping your specific animation logic intact */
@@ -229,7 +216,6 @@ export default function Predict() {
                                         </div>
                                     )}
 
-                                    {/* Additional Models Hidden if not available */}
                                     {(result.cost.model || result.cost.nn) && (
                                         <div className="grid grid-cols-2 gap-3">
                                             {result.cost.model && (

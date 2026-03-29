@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
     LuLayoutDashboard, LuHistory, LuFileText, LuTrendingUp,
-    LuShieldPlus, LuExternalLink, LuCircleUser, LuChevronRight,
-    LuActivity, LuArrowUpRight, LuCircleAlert
+    LuShieldPlus, LuActivity, LuArrowUpRight, LuCircleAlert
 } from "react-icons/lu";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
-// Sample Data for "Population Intelligence" Charts
+
 const ageData = [
     { range: '18-25', premium: 8500, users: 400 },
     { range: '26-35', premium: 12000, users: 850 },
@@ -17,31 +16,12 @@ const ageData = [
 ];
 
 export default function Dashboard() {
+
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#020617] transition-colors duration-500 pb-12">
 
-            {/* Top Navigation Bar (Dashboard Specific) */}
-            <div className="w-full border-b border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-30">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                        <LuLayoutDashboard className="text-sky-500" size={20} />
-                        <span className="font-black text-slate-900 dark:text-white uppercase tracking-tighter">Clinical Hub</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <div className="text-right hidden md:block">
-                            <p className="text-xs font-black text-slate-900 dark:text-white">Krish Patel</p>
-                            <p className="text-[10px] text-emerald-500 font-bold uppercase">Patient ID: #8821</p>
-                        </div>
-                        <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center border border-slate-300 dark:border-slate-700">
-                            <LuCircleUser size={24} className="text-slate-500" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <main className="max-w-7xl mx-auto px-6 pt-8 space-y-8">
 
-                {/* 1. Quick Action Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <ActionCard
                         icon={<LuActivity />}
@@ -72,7 +52,6 @@ export default function Dashboard() {
 
                 <div className="grid lg:grid-cols-3 gap-8">
 
-                    {/* 2. Charts Section (Population Intelligence) */}
                     <div className="lg:col-span-2 space-y-6">
                         <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
                             <div className="flex justify-between items-center mb-6">
@@ -101,7 +80,6 @@ export default function Dashboard() {
                             </div>
                         </div>
 
-                        {/* Recent Alerts / Recommendations */}
                         <div className="bg-sky-600 rounded-[2rem] p-6 text-white relative overflow-hidden">
                             <div className="relative z-10 flex items-center justify-between">
                                 <div className="space-y-1">
@@ -119,7 +97,6 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    {/* 3. Expert Referral Links (Indian Insurance) */}
                     <div className="space-y-6">
                         <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800">
                             <h3 className="text-lg font-black text-slate-900 dark:text-white mb-4">Trusted Insurers</h3>
@@ -138,7 +115,6 @@ export default function Dashboard() {
                             </div>
                         </div>
 
-                        {/* Quick Stats Sidebar */}
                         <div className="bg-emerald-500/5 border border-emerald-500/20 p-6 rounded-[2rem]">
                             <h4 className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-4">Market Statistics</h4>
                             <div className="space-y-4">
@@ -158,7 +134,6 @@ export default function Dashboard() {
     );
 }
 
-// Sub-components for Cleanliness
 function ActionCard({ icon, title, desc, color, onClick }) {
     return (
         <motion.button
