@@ -4,7 +4,6 @@ import { LuChevronUp } from "react-icons/lu";
 export default function ScrollToTop() {
     const [isVisible, setIsVisible] = useState(false);
 
-    // Show button when page is scrolled down
     useEffect(() => {
         const toggleVisibility = () => {
             if (window.scrollY > 300) {
@@ -39,7 +38,6 @@ export default function ScrollToTop() {
                 `}
                 aria-label="Scroll to top"
             >
-                {/* Subtle Pulse Rings */}
                 <span className="absolute inset-0 rounded-2xl bg-sky-400 animate-ping opacity-20 group-hover:hidden"></span>
 
                 <LuChevronUp

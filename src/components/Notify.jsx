@@ -13,7 +13,6 @@ export default function Notify({ details, onClose }) {
     const status = details?.status;
     const message = details?.message;
 
-    // 1. Determine Type based on Status Code
     const getStatusConfig = (code) => {
         if (code >= 200 && code < 300) return {
             color: 'bg-emerald-500',
@@ -31,7 +30,7 @@ export default function Notify({ details, onClose }) {
             icon: <HiExclamationCircle className="size-5" />,
             label: 'Request Issue'
         };
-        return { // 500+ or others
+        return {
             color: 'bg-rose-500',
             bg: 'bg-rose-50 dark:bg-rose-950/30',
             border: 'border-rose-200 dark:border-rose-800/50',
@@ -43,13 +42,11 @@ export default function Notify({ details, onClose }) {
 
     const config = getStatusConfig(status);
 
-    // 2. Auto-close Logic (3 Seconds)
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose();
         }, 3000);
 
-        // Progress bar animation logic
         const interval = setInterval(() => {
             setProgress((prev) => prev - (100 / 30));
         }, 100);
@@ -70,12 +67,10 @@ export default function Notify({ details, onClose }) {
             exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
             className={`fixed bottom-6 right-6 z-[100] flex items-center gap-4 p-4 pr-12 min-w-[320px] max-w-md rounded-2xl border shadow-2xl backdrop-blur-xl ${config.bg} ${config.border} transition-colors duration-500`}
         >
-            {/* Status Icon */}
             <div className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-white ${config.color} shadow-lg shadow-${config.color}/20`}>
                 {config.icon}
             </div>
 
-            {/* Message Body */}
             <div className="flex-1 overflow-hidden">
                 <p className={`text-[10px] font-black uppercase tracking-[0.15em] opacity-60 ${config.text}`}>
                     {config.label} • {status}
@@ -85,7 +80,6 @@ export default function Notify({ details, onClose }) {
                 </p>
             </div>
 
-            {/* Close Button */}
             <button
                 onClick={onClose}
                 className={`absolute top-3 right-3 p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors ${config.text}`}
@@ -93,7 +87,6 @@ export default function Notify({ details, onClose }) {
                 <HiX size={16} />
             </button>
 
-            {/* Visual Progress Bar (3s) */}
             <div className="absolute bottom-0 left-0 h-1 bg-black/5 dark:bg-white/5 w-full rounded-b-2xl overflow-hidden">
                 <motion.div
                     initial={{ width: "100%" }}

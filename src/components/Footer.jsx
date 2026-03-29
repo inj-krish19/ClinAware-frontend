@@ -25,7 +25,6 @@ export default function Footer() {
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
 
-                    {/* Brand Section */}
                     <div className="col-span-1 md:col-span-1 space-y-4">
                         <div className="flex items-center gap-2 text-2xl font-black bg-gradient-to-r from-sky-600 to-emerald-600 dark:from-sky-400 dark:to-emerald-400 bg-clip-text text-transparent">
                             <img src='/icon.svg' alt="ClinAware" className="w-8 h-8 drop-shadow-sm" />
@@ -41,7 +40,6 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Quick Actions */}
                     <div>
                         <h4 className="text-slate-900 dark:text-white font-bold mb-6 text-sm uppercase tracking-widest">Quick Actions</h4>
                         <ul className="space-y-4">
@@ -56,7 +54,6 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Resources */}
                     <div>
                         <h4 className="text-slate-900 dark:text-white font-bold mb-6 text-sm uppercase tracking-widest">Support</h4>
                         <ul className="space-y-4">
@@ -70,7 +67,6 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Newsletter/Contact Placeholder */}
                     <div className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-3xl border border-slate-100 dark:border-slate-800">
                         <h4 className="text-slate-900 dark:text-white font-bold mb-2 text-sm">Need Assistance?</h4>
                         <p className="text-slate-500 dark:text-slate-400 text-xs mb-4">Reach out to our official support channel.</p>
@@ -83,7 +79,6 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Bottom Bar: Credits & Copyright */}
                 <div className="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
                     <div className="text-slate-400 dark:text-slate-600 text-xs font-medium space-y-1">
                         <p>© {currentYear} ClinAware — Clinical Intelligence Platform.</p>
