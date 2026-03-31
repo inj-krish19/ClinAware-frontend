@@ -53,11 +53,19 @@ export default function Predict() {
         };
 
         try {
-            const res = await axios.post(`${BACKEND_URL}/predict`, formattedData, {
-                headers: { "Content-Type": "application/json" },
+            console.log(formattedData)
+            const res = await fetch(`${BACKEND_URL}/predict`, {
+                method: 'POST',
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(formattedData),
+                credentials: "include"
             });
-            setResult(res.data);
+            let response = await res.json()
+            setResult(response);
         } catch (err) {
+            console.log(err);
             setError(`Please wait a moment till insights are generated`);
         } finally {
             setTimeout(() => setLoading(false), 1500);
