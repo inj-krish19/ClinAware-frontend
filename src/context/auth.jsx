@@ -18,6 +18,7 @@ const useAuth = create((set) => ({
             });
 
             let response = await res.json();
+            console.log(response);
 
             if (Boolean(response.authenticated)) {
                 set({

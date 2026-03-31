@@ -8,6 +8,7 @@ import { BACKEND_URL } from '../context/constants';
 export default function Navbar() {
 
     const isAuthenticated = useAuth((state) => state.isAuthenticated);
+    console.log("isAuthenticated", isAuthenticated);
 
     const { dark, toggleTheme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
