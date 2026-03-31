@@ -13,6 +13,7 @@ import useAuth from "./context/auth";
 
 import { useEffect } from "react";
 import { BACKEND_URL } from './context/constants'
+import Analysis from "./pages/Analysis";
 
 function App() {
 
@@ -36,6 +37,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/success" element={<Success />} />
 
+
+        <Route path="/analysis" element={
+          isAuthenticated ? <Analysis /> : <Navigate to="/signin" />}
+        />
         <Route path="/predict" element={
           isAuthenticated ? <Predict /> : <Navigate to="/signin" />}
         />
