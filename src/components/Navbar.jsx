@@ -3,6 +3,7 @@ import { HiOutlineSun, HiOutlineMoon, HiOutlineUpload, HiMenuAlt3, HiX, HiOutlin
 import { useTheme } from '../context/ThemeContext';
 import { Link, useLocation } from 'react-router-dom';
 import useAuth from '../context/auth';
+import { BACKEND_URL } from '../context/constants';
 
 export default function Navbar() {
 
@@ -18,6 +19,23 @@ export default function Navbar() {
         { name: 'Analysis', path: '/analysis' },
         { name: 'News', path: '/news' },
     ];
+
+    const logout = async () => {
+
+        let res = await fetch(`${BACKEND_URL}/auth/logout`, {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            credentials: "include"
+        });
+        let response = await res.json();
+
+        setTimeout(() => {
+            window.location.href = '/'
+        }, 1000);
+
+    }
 
     return (
         <nav className="sticky top-0 z-50 w-full border-b backdrop-blur-lg bg-white/70 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800 transition-all duration-300">
@@ -71,7 +89,7 @@ export default function Navbar() {
 
                                 <button
                                     className="p-2.5 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all"
-                                    title="Logout"
+                                    title="Logout" onClick={() => logout()}
                                 >
                                     <HiOutlineLogout size={22} />
                                 </button>

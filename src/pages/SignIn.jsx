@@ -126,7 +126,7 @@ export default function SignIn() {
                 <p className="flex justify-center text-center mt-10 text-sm font-medium text-slate-500 dark:text-slate-400">
                     Don't have a profile yet?
                     <button
-                        className="flex flex-row justify-center gap-2 items-center text-sky-600 dark:text-sky-400 font-bold ml-2 hover:underline underline-offset-4 transition-all"
+                        className="flex flex-row justify-center gap-2 items-center text-sky-600 dark:text-sky-400 font-bold ml-2 hover:scale-105 transition-all"
                         onClick={() => { window.location.href = '/signup' }}
                     >
                         Create one <LuArrowRight />

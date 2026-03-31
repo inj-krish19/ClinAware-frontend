@@ -1,21 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     LuLayoutDashboard, LuHistory, LuFileText, LuTrendingUp,
     LuShieldPlus, LuActivity, LuArrowUpRight, LuCircleAlert
 } from "react-icons/lu";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-
-
-const ageData = [
-    { range: '18-25', premium: 8500, users: 400 },
-    { range: '26-35', premium: 12000, users: 850 },
-    { range: '36-45', premium: 18500, users: 600 },
-    { range: '46-60', premium: 32000, users: 300 },
-    { range: '60+', premium: 55000, users: 150 },
-];
+import { BACKEND_URL } from '../context/constants';
 
 export default function Dashboard() {
+
+    const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        let res = await fetch(`${BACKEND_URL}/analysis/age-avg-premium`, {
+            method: 'GET',
+            headers: {
+                "content-type": "application/json"
+            },
+            credentials: "include"
+        });
+
+        let response = await res.json();
+        setData(response?.data);
+
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#020617] transition-colors duration-500 pb-12">
@@ -66,15 +78,15 @@ export default function Dashboard() {
 
                             <div className="h-[300px] w-full">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={ageData}>
+                                    <BarChart data={data}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" opacity={0.1} />
-                                        <XAxis dataKey="range" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 'bold' }} />
+                                        <XAxis dataKey="age" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 'bold' }} />
                                         <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
                                         <Tooltip
                                             contentStyle={{ borderRadius: '16px', border: 'none', backgroundColor: '#0f172a', color: '#fff' }}
                                             itemStyle={{ color: '#38bdf8' }}
                                         />
-                                        <Bar dataKey="premium" fill="#0ea5e9" radius={[6, 6, 0, 0]} barSize={40} />
+                                        <Bar dataKey="yearly" fill="#0ea5e9" radius={[6, 6, 0, 0]} barSize={40} />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
