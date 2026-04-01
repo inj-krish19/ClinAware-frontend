@@ -8,7 +8,7 @@ import {
 export default function Home() {
     const [activeTab, setActiveTab] = useState('insurance');
 
-    const modules = {
+    const services = {
         insurance: {
             title: "Personalized Cost Predictor",
             subtitle: "Regression-Based Machine Learning",
@@ -70,8 +70,8 @@ export default function Home() {
                     <Link to="/predict" className="group w-full sm:w-auto px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold shadow-lg shadow-sky-500/20 transition-all hover:-translate-y-0.5 active:translate-y-0 text-center flex items-center justify-center gap-2">
                         Launch Dashboard <LuLayoutDashboard size={18} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
-                    <a href="#explore-modules" className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-center">
-                        Explore Modules
+                    <a href="#explore-services" className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-center">
+                        Explore Services
                     </a>
                 </div>
             </section>
@@ -93,19 +93,19 @@ export default function Home() {
                 </div>
             </section>
 
-            <section id="explore-modules" className="relative max-w-7xl mx-auto px-6 py-16 mb-24">
+            <section id="explore-services" className="relative max-w-7xl mx-auto px-6 py-16 mb-24">
                 <div className="text-center mb-12">
                     <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
                         The Core Intelligence Engine
                     </h2>
                     <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
-                        ClinAware utilizes isolated, fine-tuned modules to solve distinct medical and billing challenges. Select a module to see how it works.
+                        ClinAware utilizes isolated, fine-tuned services to solve distinct medical and billing challenges. Select a module to see how it works.
                     </p>
                 </div>
 
                 <div className="flex justify-center flex-wrap gap-2 md:gap-4 mb-12">
-                    {Object.keys(modules).map((key) => {
-                        const module = modules[key];
+                    {Object.keys(services).map((key) => {
+                        const module = services[key];
                         const Icon = module.icon;
                         const isActive = activeTab === key;
 
@@ -130,19 +130,19 @@ export default function Home() {
                     <div className="lg:col-span-7 space-y-6">
                         <div className="space-y-2">
                             <span className="text-xs font-bold tracking-widest text-sky-600 dark:text-sky-400 uppercase">
-                                {modules[activeTab].subtitle}
+                                {services[activeTab].subtitle}
                             </span>
                             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-                                {modules[activeTab].title}
+                                {services[activeTab].title}
                             </h3>
                         </div>
 
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm md:text-base">
-                            {modules[activeTab].description}
+                            {services[activeTab].description}
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            {modules[activeTab].benefits.map((benefit, i) => (
+                            {services[activeTab].benefits.map((benefit, i) => (
                                 <div key={i} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
                                     <LuCircleCheck size={18} className="text-emerald-500 flex-shrink-0" />
                                     <span>{benefit}</span>
@@ -197,7 +197,7 @@ export default function Home() {
                             )}
 
                             <div className="absolute bottom-4 text-xs font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase">
-                                live: {modules[activeTab].stat}
+                                live: {services[activeTab].stat}
                             </div>
                         </div>
                     </div>

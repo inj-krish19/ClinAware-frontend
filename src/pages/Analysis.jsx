@@ -120,7 +120,6 @@ export default function Analysis() {
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* 1) Age and Avg Premium */}
                     <ChartCard title="Overall Age vs Premium" data={chartsData.ageAvg}>
                         <AreaChart data={chartsData.ageAvg}>
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" opacity={0.3} />
@@ -131,7 +130,6 @@ export default function Analysis() {
                         </AreaChart>
                     </ChartCard>
 
-                    {/* 2) Smoker Age vs Premium */}
                     <ChartCard title="Smokers: Age & Premium" data={chartsData.smokerAge}>
                         <BarChart data={chartsData.smokerAge}>
                             <XAxis dataKey="age" fontSize={10} />
@@ -141,7 +139,6 @@ export default function Analysis() {
                         </BarChart>
                     </ChartCard>
 
-                    {/* 3) NonSmoker Age vs Premium */}
                     <ChartCard title="Non-Smokers: Age & Premium" data={chartsData.nonSmokerAge}>
                         <BarChart data={chartsData.nonSmokerAge}>
                             <XAxis dataKey="age" fontSize={10} />
@@ -151,7 +148,6 @@ export default function Analysis() {
                         </BarChart>
                     </ChartCard>
 
-                    {/* 4) Region Avg Premium */}
                     <ChartCard title="Regional Average" data={chartsData.regionAvg}>
                         <BarChart data={chartsData.regionAvg} layout="vertical">
                             <XAxis type="number" hide />
@@ -161,7 +157,6 @@ export default function Analysis() {
                         </BarChart>
                     </ChartCard>
 
-                    {/* 5) Smoker & Region */}
                     <ChartCard title="Smokers by Region" data={chartsData.smokerRegion}>
                         <BarChart data={chartsData.smokerRegion}>
                             <XAxis dataKey="region" fontSize={9} />
@@ -171,7 +166,6 @@ export default function Analysis() {
                         </BarChart>
                     </ChartCard>
 
-                    {/* 6) NonSmoker & Region */}
                     <ChartCard title="Non-Smokers by Region" data={chartsData.nonSmokerRegion}>
                         <BarChart data={chartsData.nonSmokerRegion}>
                             <XAxis dataKey="region" fontSize={9} />

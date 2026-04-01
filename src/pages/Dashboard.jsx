@@ -44,9 +44,10 @@ export default function Dashboard() {
                     />
                     <ActionCard
                         icon={<LuHistory />}
-                        title="Medical History"
+                        title="Insurance History"
                         desc="View previous assessments"
                         color="bg-purple-500"
+                        onClick={() => window.location.href = '/history'}
                     />
                     <ActionCard
                         icon={<LuFileText />}

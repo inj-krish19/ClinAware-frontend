@@ -111,7 +111,7 @@ export default function Predict() {
                                 type="text"
                                 name="name"
                                 required
-                                placeholder="e.g., Krish"
+                                placeholder="e.g., Kavan"
                                 value={form.name}
                                 onChange={handleChange}
                                 className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-sky-500 outline-none dark:text-white transition-all font-medium"
