@@ -14,8 +14,9 @@ import History from "./pages/History";
 import Dashboard from "./pages/Dashboard";
 import Analysis from "./pages/Analysis";
 
-import useAuth from "./context/auth";
+import News from "./pages/News";
 import { useEffect } from "react";
+import useAuth from "./context/auth";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/news" element={<News />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/success" element={<Success />} />
