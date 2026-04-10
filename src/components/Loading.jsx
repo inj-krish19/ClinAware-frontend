@@ -47,7 +47,7 @@ export default function Loading() {
                 </div>
 
                 <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400 dark:text-slate-600 mt-2 animate-pulse">
-                    Synchronizing Data
+                    Keep the health safe.
                 </p>
             </div>
         </div>
