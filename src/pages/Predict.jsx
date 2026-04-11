@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LuCalculator, LuUser, LuBaby, LuActivity, LuInfo, LuLoader, LuShield, LuFingerprint, LuWallet, LuTriangleAlert, LuCircleCheck } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import { BACKEND_URL } from '../context/constants';
+import InsuranceMarket from "../components/InsuranceMarket";
 
 export default function Predict() {
     const [form, setForm] = useState({
@@ -309,6 +310,20 @@ export default function Predict() {
                     </div>
                 )}
             </AnimatePresence>
+
+            <AnimatePresence>
+                {result && !loading && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                    >
+                        {/* Pass the regressor cost to the market component */}
+                        <InsuranceMarket aiPredictedMonthly={result.cost.regressor} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     );
 }
