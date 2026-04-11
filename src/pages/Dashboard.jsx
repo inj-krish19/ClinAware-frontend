@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     LuLayoutDashboard, LuHistory, LuFileText, LuTrendingUp,
-    LuShieldPlus, LuActivity, LuArrowUpRight, LuCircleAlert
+    LuShieldPlus, LuActivity, LuArrowUpRight, LuCircleAlert,
+    LuShield,
+    LuWallet
 } from "react-icons/lu";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { BACKEND_URL } from '../context/constants';
@@ -93,20 +95,39 @@ export default function Dashboard() {
                             </div>
                         </div>
 
-                        <div className="bg-sky-600 rounded-[2rem] p-6 text-white relative overflow-hidden">
-                            <div className="relative z-10 flex items-center justify-between">
-                                <div className="space-y-1">
-                                    <div className="flex items-center gap-2">
-                                        <LuCircleAlert size={18} />
-                                        <span className="font-black uppercase text-xs tracking-widest">Recommendation</span>
-                                    </div>
-                                    <p className="text-xl font-bold">Your BMI suggests a 15% lower premium if maintained.</p>
+                        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Financial Security Insight */}
+                            <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm">
+                                <div className="flex items-center gap-2 mb-3 text-sky-500">
+                                    <LuWallet size={16} />
+                                    <h5 className="text-[10px] font-black uppercase tracking-widest">Wealth Protection</h5>
                                 </div>
-                                <button className="bg-white text-sky-600 px-4 py-2 rounded-xl font-black text-xs hover:bg-sky-50 transition-colors">
-                                    VIEW TIPS
-                                </button>
+                                <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400 font-medium">
+                                    Insurance isn't just an expense; it's a **one-time investment** for crisis management. Without it, a single critical hospitalization can deplete up to 60% of middle-class household savings.
+                                </p>
                             </div>
-                            <div className="absolute top-[-20%] right-[-5%] w-40 h-40 bg-white/10 blur-3xl rounded-full" />
+
+                            {/* Risk Assessment Insight */}
+                            <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm">
+                                <div className="flex items-center gap-2 mb-3 text-emerald-500">
+                                    <LuActivity size={16} />
+                                    <h5 className="text-[10px] font-black uppercase tracking-widest">Clinical Risk</h5>
+                                </div>
+                                <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400 font-medium">
+                                    Our neural engine flags your profile's specific risk factors. Securing a policy while your **BMI and age** are in the "Green Zone" locks in lower premiums and bypasses strict medical waiting periods.
+                                </p>
+                            </div>
+
+                            {/* The "Hidden" Aspect Insight */}
+                            <div className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm">
+                                <div className="flex items-center gap-2 mb-3 text-amber-500">
+                                    <LuShield size={16} />
+                                    <h5 className="text-[10px] font-black uppercase tracking-widest">Restoration Factor</h5>
+                                </div>
+                                <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400 font-medium">
+                                    Users often overlook **Unlimited Restoration**. In a multi-claim year, this feature ensures your cover amount resets to zero cost—effectively doubling your protection without increasing the premium.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -152,9 +173,9 @@ function ActionCard({ icon, title, desc, color, onClick }) {
         <motion.button
             whileHover={{ y: -5 }}
             onClick={onClick}
-            className="flex items-center gap-4 p-5 bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm text-left group transition-all"
+            className="flex items-center gap-4 p-5 bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm text-left group transition-all hover:cursor-pointer"
         >
-            <div className={`w-12 h-12 ${color} rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110`}>
+            <div className={`w-12 h-12 ${color} rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 `}>
                 {React.cloneElement(icon, { size: 24 })}
             </div>
             <div>

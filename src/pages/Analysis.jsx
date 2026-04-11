@@ -143,7 +143,7 @@ export default function Analysis() {
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" opacity={0.3} />
                             <XAxis dataKey="age" fontSize={10} axisLine={false} tickLine={false} />
                             <YAxis fontSize={10} axisLine={false} tickLine={false} tickFormatter={(val) => `₹${val / 1000}k`} />
-                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }} />
+                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', color: 'var(--color-fuchsia-400)' }} />
                             <Area type="monotone" dataKey={timeframe} stroke="#0ea5e9" fill="url(#colorSky)" strokeWidth={3} />
                             <defs>
                                 <linearGradient id="colorSky" x1="0" y1="0" x2="0" y2="1">
@@ -158,7 +158,7 @@ export default function Analysis() {
                         <BarChart data={chartsData.regionAvg} layout="vertical">
                             <XAxis type="number" hide />
                             <YAxis dataKey="region" type="category" fontSize={10} width={80} axisLine={false} tickLine={false} />
-                            <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ borderRadius: '16px', border: 'none' }} />
+                            <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ borderRadius: '16px', border: 'none', color: 'var(--color-fuchsia-400)' }} />
                             <Bar dataKey={timeframe} fill="#6366f1" radius={[0, 10, 10, 0]} barSize={20} />
                         </BarChart>
                     </ChartCard>
@@ -168,7 +168,7 @@ export default function Analysis() {
                         <BarChart data={chartsData.chronicAge}>
                             <XAxis dataKey="age" fontSize={10} axisLine={false} tickLine={false} />
                             <YAxis fontSize={10} axisLine={false} tickLine={false} />
-                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none' }} />
+                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', color: 'var(--color-fuchsia-400)' }} />
                             <Bar dataKey={timeframe} fill="#f43f5e" radius={[6, 6, 0, 0]} />
                         </BarChart>
                     </ChartCard>
@@ -177,7 +177,7 @@ export default function Analysis() {
                         <BarChart data={chartsData.nonChronicAge}>
                             <XAxis dataKey="age" fontSize={10} axisLine={false} tickLine={false} />
                             <YAxis fontSize={10} axisLine={false} tickLine={false} />
-                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none' }} />
+                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', color: 'var(--color-fuchsia-400)' }} />
                             <Bar dataKey={timeframe} fill="#10b981" radius={[6, 6, 0, 0]} />
                         </BarChart>
                     </ChartCard>
@@ -186,7 +186,7 @@ export default function Analysis() {
                         <BarChart data={chartsData.chronicRegion}>
                             <XAxis dataKey="region" fontSize={9} axisLine={false} tickLine={false} />
                             <YAxis fontSize={10} axisLine={false} tickLine={false} />
-                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none' }} />
+                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', color: 'var(--color-fuchsia-400)' }} />
                             <Bar dataKey={timeframe} fill="#f43f5e" radius={[6, 6, 0, 0]} />
                         </BarChart>
                     </ChartCard>
@@ -195,7 +195,7 @@ export default function Analysis() {
                         <BarChart data={chartsData.nonChronicRegion}>
                             <XAxis dataKey="region" fontSize={9} axisLine={false} tickLine={false} />
                             <YAxis fontSize={10} axisLine={false} tickLine={false} />
-                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none' }} />
+                            <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', color: 'var(--color-fuchsia-400)' }} />
                             <Bar dataKey={timeframe} fill="#10b981" radius={[6, 6, 0, 0]} />
                         </BarChart>
                     </ChartCard>

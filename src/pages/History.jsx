@@ -1,159 +1,149 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiOutlineDatabase, HiChevronDown, HiExternalLink, HiOutlineShieldCheck } from 'react-icons/hi';
+import { LuHistory, LuSearch, LuShieldCheck, LuActivity, LuLayers, LuUser, LuWallet } from 'react-icons/lu';
 import { BACKEND_URL } from '../context/constants';
-import Loading from '../components/Loading';
+import InsuranceMarket from '../components/InsuranceMarket'
 
 export default function History() {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [expandedRow, setExpandedRow] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const fetchHistory = async () => {
+        setLoading(true);
         try {
-            const res = await fetch(`${BACKEND_URL}/insurance/history`, {
-                method: 'GET',
-                headers: { "content-type": "application/json" },
-                credentials: "include"
-            });
-            const response = await res.json();
-            setHistory(response?.data || []);
+            // Updated to your specific route
+            const res = await fetch(`${BACKEND_URL}/insurance/history`, { credentials: "include" });
+            const data = await res.json();
+            // Accessing data from the 'data' array as per your requirement
+            setHistory(data.data || []);
         } catch (err) {
-            console.error("History Fetch Error:", err);
+            console.error("Clinical History Error:", err);
         } finally {
-            setLoading(false);
+            setTimeout(() => setLoading(false), 800);
         }
     };
 
     useEffect(() => { fetchHistory(); }, []);
 
-    if (loading) return <Loading />;
+    const filteredHistory = history.filter(item =>
+        item.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-    // Column spans for the 12-column grid
-    const colStyles = "grid grid-cols-1 md:grid-cols-12 items-center p-6 md:p-8 gap-4";
+    if (loading) return (
+        <div className="h-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-[#020617]">
+            <div className="w-12 h-12 border-4 border-sky-500 border-t-transparent rounded-full animate-spin mb-4" />
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Syncing Medical Archives...</p>
+        </div>
+    );
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#020617] pt-28 pb-12 px-4 md:px-8">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#020617] pt-28 pb-12 px-6">
             <div className="max-w-6xl mx-auto">
-                <header className="mb-10">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-sky-500/10 rounded-lg">
-                            <HiOutlineDatabase className="text-sky-500 text-xl" />
+
+                <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+                    <div>
+                        <div className="flex items-center gap-3 mb-2">
+                            <LuHistory className="text-sky-500" size={26} />
+                            <h1 className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
+                                Prediction <span className="text-sky-500">History</span>
+                            </h1>
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">INSURANCE</span>
+                        <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] opacity-70">Secured Patient Audit Log</p>
                     </div>
-                    <h1 className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white">
-                        Prediction <span className="text-sky-500">History</span>
-                    </h1>
-                    <p className="text-slate-500 text-sm mt-2">Historical log of all generated insurance premium audits.</p>
+
+                    <div className="relative w-full md:w-96">
+                        <LuSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <input
+                            type="text"
+                            placeholder="SEARCH BY PATIENT IDENTITY..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-14 pr-6 py-5 rounded-[1.5rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 outline-none focus:ring-2 ring-sky-500/20 focus:border-sky-500 dark:text-white text-[11px] font-black tracking-widest transition-all shadow-sm"
+                        />
+                    </div>
                 </header>
 
-                {history.length === 0 ? (
-                    <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800">
-                        <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">No Records Found</p>
-                    </div>
-                ) : (
-                    <div className="space-y-4">
-                        <div className="hidden md:grid grid-cols-12 px-8 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                            <span className="col-span-3">Subject</span>
-                            <span className="col-span-2">Metrics</span>
-                            <span className="col-span-2">Demographics</span>
-                            <span className="col-span-2">Insurance Cost</span>
-                            <span className="col-span-2">Alpha Model</span>
-                            <span className="col-span-1 text-right">Action</span>
-                        </div>
-
-                        {history.map((item, idx) => (
-                            <div key={idx} className="group">
+                <div className="grid grid-cols-1 gap-6">
+                    <AnimatePresence mode="popLayout">
+                        {filteredHistory.length > 0 ? (
+                            filteredHistory.map((item, index) => (
                                 <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className={`relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl md:rounded-3xl transition-all hover:shadow-lg hover:shadow-sky-500/5 
-                                    ${expandedRow === idx ? 'ring-2 ring-sky-500/20' : ''}`}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    key={item.id || index}
+                                    className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 p-6 md:p-8 flex flex-col lg:flex-row gap-8 items-start lg:items-center hover:border-sky-500/30 transition-all"
                                 >
-                                    <div className={colStyles}>
-                                        <div className="md:col-span-3 flex items-center gap-3">
-                                            <div className="w-10 h-10 shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-sky-500 ">
-                                                {item.name ? item.name[0] : '?'}
+                                    {/* Patient Core Profile */}
+                                    <div className="flex gap-6 items-center min-w-[280px]">
+                                        <div className="w-10 h-10 shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-sky-500 ">
+                                            {item.name ? item.name[0] : '?'}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tighter leading-none mb-2">{item.name}</h3>
+                                            <div className="flex gap-3 items-center">
+                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.age}y</span>
+                                                <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
+                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest capitalize">{item.sex}</span>
+                                                <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
+                                                <span className="text-[10px] font-black text-sky-500 uppercase tracking-widest">{item.region}</span>
                                             </div>
-                                            <div className="truncate">
-                                                <h4 className="font-bold text-slate-900 dark:text-white truncate">{item.name}</h4>
-                                                <span className="text-[10px] uppercase font-bold text-slate-400">{item.sex}</span>
-                                            </div>
-                                        </div>
-
-                                        <div className="md:col-span-2 flex flex-col gap-1">
-                                            <span className="text-xs font-bold text-slate-600 dark:text-slate-400">BMI: <span className="text-sky-500">{item.bmi}</span></span>
-                                            <span className="text-xs font-medium text-slate-400">Children: {item.children}</span>
-                                        </div>
-
-                                        <div className="md:col-span-2 flex flex-col gap-1">
-                                            <div className={`text-[9px] w-fit px-2 py-0.5 rounded-full font-black uppercase ${item.smoker === 'yes' ? 'bg-rose-100 text-rose-500' : 'bg-emerald-100 text-emerald-500'}`}>
-                                                {item.smoker === 'yes' ? 'Smoker' : 'Non-Smoker'}
-                                            </div>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter truncate">{item.region}</span>
-                                        </div>
-
-                                        <div className="hidden md:block md:col-span-2 font-mono text-xs font-bold text-sky-500">
-                                            ₹{parseFloat(item.predictions.regressor).toLocaleString()}
-                                        </div>
-
-                                        <div className="hidden md:block md:col-span-2 font-mono text-xs font-bold text-emerald-500">
-                                            ₹{parseFloat(item.predictions.nn).toLocaleString()}
-                                        </div>
-
-                                        <div className="md:hidden flex justify-between bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl">
-                                            <div className="text-center">
-                                                <p className="text-[8px] uppercase font-bold text-slate-400 mb-1">Alpha Model</p>
-                                                <p className="text-sm font-black text-emerald-500">₹{parseFloat(item.predictions.nn).toFixed(0)}</p>
-                                            </div>
-                                            <div className="text-center border-l border-slate-200 dark:border-slate-700 pl-4">
-                                                <p className="text-[8px] uppercase font-bold text-slate-400 mb-1">Insurance Cost</p>
-                                                <p className="text-sm font-black text-sky-500">₹{parseFloat(item.predictions.regressor).toFixed(0)}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="md:col-span-1 flex justify-end">
-                                            <button
-                                                onClick={() => setExpandedRow(expandedRow === idx ? null : idx)}
-                                                className={`p-2 rounded-xl transition-all ${expandedRow === idx ? 'bg-sky-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-sky-500'}`}
-                                            >
-                                                <HiChevronDown className={`transition-transform duration-300 ${expandedRow === idx ? 'rotate-180' : ''}`} />
-                                            </button>
                                         </div>
                                     </div>
 
-                                    <AnimatePresence>
-                                        {expandedRow === idx && (
-                                            <motion.div
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: 'auto', opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                className="border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50"
-                                            >
-                                                <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                                                    <div className="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                                        <h5 className="text-[10px] font-black text-slate-400 uppercase mb-2">Insurance Cost Prediction</h5>
-                                                        <p className="text-2xl font-black text-slate-900 dark:text-white">₹{parseFloat(item.predictions.regressor).toLocaleString()}</p>
-                                                    </div>
-                                                    <div className="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                                        <h5 className="text-[10px] font-black text-slate-400 uppercase mb-2">Alpha Model Prediction</h5>
-                                                        <p className="text-2xl font-black text-slate-900 dark:text-white">₹{parseFloat(item.predictions.nn).toLocaleString()}</p>
-                                                    </div>
-                                                    <div className="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                                        <h5 className="text-[10px] font-black text-slate-400 uppercase mb-2">Beta Model Prediction</h5>
-                                                        <p className="text-2xl font-black text-slate-900 dark:text-white">₹{parseFloat(item.predictions.model).toLocaleString()}</p>
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
+                                    {/* Clinical Metrics */}
+                                    <div className="grid grid-cols-3 gap-8 flex-1">
+                                        <div className="space-y-1">
+                                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><LuActivity size={12} /> BMI</p>
+                                            <p className="text-md font-bold dark:text-white">{item.bmi.toFixed(1)}</p>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><LuWallet size={12} /> Income</p>
+                                            <p className="text-md font-bold dark:text-white">₹{item.income.toLocaleString('en-IN')}</p>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Risk Factor</p>
+                                            <span className={`text-[10px] font-black px-3 py-1 rounded-lg uppercase tracking-tighter ${item.chronic_condition === 'yes' ? 'bg-rose-500/10 text-rose-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                                                {item.chronic_condition === 'yes' ? 'Chronic' : 'Standard'}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Prediction Map Processing */}
+                                    <div className="w-full lg:w-auto flex flex-col md:flex-row gap-6 items-center bg-slate-50 dark:bg-slate-800/40 p-5 rounded-[2rem] border border-slate-100 dark:border-slate-800/50">
+                                        <div className="px-4 text-center md:text-left">
+                                            <p className="text-[9px] font-black text-emerald-500 uppercase tracking-widest mb-1">Recommended Premium</p>
+                                            <p className="text-3xl font-black text-slate-900 dark:text-emerald-400 tracking-tighter">
+                                                ₹{item.predictions?.regressor?.toLocaleString('en-IN') || '0'}
+                                            </p>
+                                        </div>
+
+                                        <div className="hidden md:block w-px h-10 bg-slate-200 dark:bg-slate-700" />
+
+                                        <div className="flex gap-6">
+                                            <div className="text-center">
+                                                <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Alpha (LR)</p>
+                                                <p className="text-sm font-bold dark:text-slate-200">₹{item.predictions?.model?.toLocaleString('en-IN') || '0'}</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Beta (NN)</p>
+                                                <p className="text-sm font-bold dark:text-slate-200">₹{item.predictions?.nn?.toLocaleString('en-IN') || '0'}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </motion.div>
+                            ))
+                        ) : (
+                            <div className="h-[400px] border-4 border-dashed border-slate-200 dark:border-slate-800 rounded-[3.5rem] flex flex-col items-center justify-center p-12 text-center text-slate-300">
+                                <LuShieldCheck size={56} className="mb-4 opacity-5" />
+                                <p className="text-[11px] font-black uppercase tracking-[0.5em] opacity-40">No Clinical Records Found</p>
                             </div>
-                        ))}
-                    </div>
-                )}
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
+
         </div>
     );
 }
