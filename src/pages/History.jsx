@@ -126,10 +126,10 @@ export default function History() {
                                                 <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Alpha (LR)</p>
                                                 <p className="text-sm font-bold dark:text-slate-200">₹{item.predictions?.model?.toLocaleString('en-IN') || '0'}</p>
                                             </div>
-                                            <div className="text-center">
+                                            {/* <div className="text-center">
                                                 <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Beta (NN)</p>
                                                 <p className="text-sm font-bold dark:text-slate-200">₹{item.predictions?.nn?.toLocaleString('en-IN') || '0'}</p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </motion.div>

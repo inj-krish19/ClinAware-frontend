@@ -210,10 +210,10 @@ export default function Predict() {
                                             <p className="text-[8px] font-black uppercase tracking-widest opacity-50 mb-1">Alpha Model (LR)</p>
                                             <p className="text-xl font-bold">₹{result.cost.model.toLocaleString('en-IN')}</p>
                                         </div>
-                                        <div className="bg-purple-400/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+                                        {/* <div className="bg-purple-400/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
                                             <p className="text-[8px] font-black uppercase tracking-widest opacity-50 mb-1">Beta Model (NN)</p>
                                             <p className="text-xl font-bold">₹{result.cost.nn.toLocaleString('en-IN')}</p>
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     {/* Conditional High Risk Alert */}
