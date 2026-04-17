@@ -15,8 +15,9 @@ import Dashboard from "./pages/Dashboard";
 import Analysis from "./pages/Analysis";
 
 import News from "./pages/News";
-import { useEffect } from "react";
+import Profile from "./pages/Profile";
 import useAuth from "./context/auth";
+import { useEffect } from "react";
 
 function App() {
 
@@ -54,6 +55,9 @@ function App() {
         />
         <Route path="/dashboard" element={
           isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
+        />
+        <Route path="/profile" element={
+          isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
         />
       </Routes>
       <Footer />

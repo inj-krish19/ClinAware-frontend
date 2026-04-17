@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineExternalLink, HiOutlineNewspaper, HiChevronDown, HiLink } from 'react-icons/hi';
-import { SiLinkedin } from 'react-icons/si'; // Install react-icons if not present
+import { SiLinkedin } from 'react-icons/si';
 import { BACKEND_URL } from '../context/constants';
 import Loading from '../components/Loading';
+
+const getPlatformInfo = (url) => {
+    if (url?.includes('linkedin.com')) {
+        return { label: 'LinkedIn', icon: <SiLinkedin size={14} className="text-[#0A66C2]" /> };
+    }
+    return { label: 'Source', icon: <HiLink size={14} className="text-slate-400" /> };
+};
 
 export default function News() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [expandedId, setExpandedId] = useState(null);
 
     const fetchNews = async () => {
         try {
@@ -29,31 +35,27 @@ export default function News() {
 
     if (loading) return <Loading />;
 
-    // Helper to detect platform
-    const getPlatformInfo = (url) => {
-        if (url?.includes('linkedin.com')) {
-            return { label: 'LinkedIn', icon: <SiLinkedin size={14} className="text-[#0A66C2]" /> };
-        }
-        return { label: 'Source', icon: <HiLink size={14} /> };
-    };
-
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#020617] pt-28 pb-20 px-4 md:px-8">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#020617] pt-28 pb-20 px-6">
             <div className="max-w-7xl mx-auto">
-
-                <header className="mb-12">
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-emerald-500/10 rounded-lg">
+                <header className="mb-16">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2.5 bg-emerald-500/10 rounded-xl">
                             <HiOutlineNewspaper className="text-emerald-500 text-xl" />
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Intelligence</span>
+                        <span className="text-xs font-semibold uppercase text-emerald-600/80 dark:text-emerald-400/80">
+                            Clinical Intelligence
+                        </span>
                     </div>
-                    <h1 className="text-5xl font-black tracking-tighter text-slate-900 dark:text-white">
+                    <h1 className="text-4xl md:text-6xl font-bold font-poppins text-slate-900 dark:text-white tracking-tight">
                         Health <span className="text-emerald-500">Insights</span>
                     </h1>
+                    <p className="mt-4 text-slate-500 dark:text-slate-400 max-w-2xl text-lg">
+                        Curated updates and breakthroughs in healthcare technology and clinical awareness.
+                    </p>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-start">
                     {posts.map((post, idx) => (
                         <NewsCard key={post.id || idx} post={post} idx={idx} />
                     ))}
@@ -63,120 +65,84 @@ export default function News() {
     );
 }
 
-
-const ImagePlaceholder = () => (
-    <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="w-full h-full bg-slate-100 dark:bg-slate-800 flex flex-col items-center justify-center p-6 text-center"
-    >
-        {/* Animated Pulse Icon */}
-        <motion.div
-            animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 1, 0.5]
-            }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="mb-3 text-slate-300 dark:text-slate-600"
-        >
-            <HiOutlineNewspaper size={48} />
-        </motion.div>
-
-        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-            Visual Asset Unavailable
-        </span>
-
-        {/* Shimmer Effect */}
-        <div className="absolute inset-0 overflow-hidden">
-            <motion.div
-                animate={{ x: ['-100%', '100%'] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
-            />
-        </div>
-    </motion.div>
-);
-
-
 const NewsCard = ({ post, idx }) => {
     const [imgError, setImgError] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const getPlatformInfo = (url) => {
-        if (url?.includes('linkedin.com')) {
-            return { label: 'LinkedIn', icon: <SiLinkedin size={14} className="text-[#0A66C2]" /> };
-        }
-        return { label: 'Source', icon: <HiLink size={14} /> };
-    };
-
-    const platform = getPlatformInfo(post.platform_url || post.url);
+    const platform = useMemo(() => getPlatformInfo(post.source || post.platform_url), [post]);
 
     return (
         <motion.article
             layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.05 }}
-            className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            className="group flex flex-col h-full bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800/60 overflow-hidden hover:shadow-2xl hover:shadow-emerald-500/5 transition-all duration-500"
         >
-            {/* Image Section */}
-            <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-800">
+            {/* Visual Header */}
+            <div className="relative h-56 overflow-hidden">
                 {!imgError ? (
-                    <motion.img
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                    <img
                         src={post.image || 'https://images.unsplash.com/photo-1505751172107-573225a91200?q=80&w=800'}
                         alt={post.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         onError={() => setImgError(true)}
                     />
                 ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
-                        <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 2 }}>
-                            <HiOutlineNewspaper size={40} className="text-slate-300 dark:text-slate-600 mb-2" />
-                        </motion.div>
-                        <span className="text-[8px] font-black uppercase tracking-widest text-slate-400">Visual Unavailable</span>
+                    <div className="w-full h-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <HiOutlineNewspaper size={40} className="text-slate-300 dark:text-slate-600" />
                     </div>
                 )}
 
-                <div className="absolute top-4 right-4 z-10">
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-full border border-slate-200 dark:border-slate-700">
+                {/* Source Badge */}
+                <div className="absolute top-4 left-4">
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-full border border-white/20 shadow-sm">
                         {platform.icon}
-                        <span className="text-[9px] font-black uppercase tracking-tighter text-slate-600 dark:text-slate-300">
+                        <span className="text-[11px] font-bold text-slate-700 dark:text-slate-200">
                             {post.source || platform.label}
                         </span>
                     </div>
                 </div>
             </div>
 
-            {/* Content Section */}
-            <div className="p-7">
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white leading-tight mb-4 line-clamp-2">
+            {/* Content Body */}
+            <div className="p-8 flex flex-col flex-grow">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white leading-snug mb-4 group-hover:text-emerald-500 transition-colors duration-300">
                     {post.title}
                 </h2>
 
-                <div className="relative">
-                    <p className={`text-slate-500 dark:text-slate-400 text-sm leading-relaxed transition-all ${isExpanded ? '' : 'line-clamp-3'}`}>
-                        {post.content.split('...')[0] + '...'}
+                <div className="flex-grow">
+                    <p className={`text-slate-500 dark:text-slate-400 text-sm leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}`}>
+                        {isExpanded ? (post.description || post.content) : post.content}
                     </p>
 
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="mt-3 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-emerald-600 transition-colors"
+                        className="mt-4 flex items-center gap-1 text-xs font-bold text-emerald-500 hover:text-emerald-600 transition-colors"
                     >
-                        {isExpanded ? 'Show Less' : 'Read Full Summary'}
-                        <HiChevronDown className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                        {isExpanded ? 'Collapse' : 'Full Summary'}
+                        <HiChevronDown className={`text-sm transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                     </button>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+                {/* Action Buttons */}
+                <div className="grid grid-cols-2 gap-3 mt-8">
                     <a
-                        href={post.platform_url || post.url}
+                        href={post.url || post.source}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300"
+                        className="flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 text-[11px] font-bold hover:bg-emerald-500 hover:text-white transition-all"
                     >
-                        View on {platform.label} <HiOutlineExternalLink size={16} />
+                        Article <HiOutlineExternalLink size={14} />
+                    </a>
+                    <a
+                        href={post.platform_url || post.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 text-[11px] font-bold hover:bg-sky-600 hover:text-white transition-all"
+                    >
+                        LinkedIn <SiLinkedin size={12} />
                     </a>
                 </div>
             </div>

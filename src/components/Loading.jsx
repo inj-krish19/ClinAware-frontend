@@ -3,51 +3,36 @@ import { motion } from 'framer-motion';
 
 export default function Loading() {
     return (
-        <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-white dark:bg-slate-950">
+        <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-white dark:bg-[#020617]">
             <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
                 className="relative flex items-center justify-center"
             >
                 <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.1, 0.3]
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 2,
-                        ease: "easeInOut"
-                    }}
-                    className="absolute w-24 h-24 rounded-full bg-sky-500/20 dark:bg-sky-400/10"
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.1, 0.2] }}
+                    transition={{ repeat: Infinity, duration: 3 }}
+                    className="absolute w-32 h-32 rounded-full bg-emerald-500/20 blur-xl"
                 />
 
-                <div className="relative w-16 h-16 bg-gradient-to-br from-sky-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-xl shadow-sky-500/20">
+                <div className="relative w-20 h-20 bg-gradient-to-br from-sky-500 to-emerald-500 rounded-[2rem] flex items-center justify-center shadow-2xl shadow-sky-500/30">
                     <img src="/icon.svg" alt="ClinAware" className="w-10 h-10 brightness-0 invert" />
                 </div>
             </motion.div>
 
-            <div className="mt-8 flex flex-col items-center gap-2">
-                <h2 className="text-xl font-black tracking-tighter bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent">
+            <div className="mt-10 flex flex-col items-center">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                     ClinAware
                 </h2>
-
-                <div className="w-48 h-1 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2">
+                <div className="w-40 h-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mt-4">
                     <motion.div
-                        initial={{ x: "-100%" }}
-                        animate={{ x: "100%" }}
-                        transition={{
-                            repeat: Infinity,
-                            duration: 1.5,
-                            ease: "easeInOut"
-                        }}
-                        className="w-full h-full bg-gradient-to-r from-transparent via-sky-500 to-transparent"
+                        animate={{ x: ["-100%", "100%"] }}
+                        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                        className="w-full h-full bg-emerald-500"
                     />
                 </div>
-
-                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400 dark:text-slate-600 mt-2 animate-pulse">
-                    Keep the health safe.
+                <p className="mt-4 text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                    Initializing Intelligence
                 </p>
             </div>
         </div>

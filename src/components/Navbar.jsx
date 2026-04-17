@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { HiOutlineSun, HiOutlineMoon, HiOutlineUpload, HiMenuAlt3, HiX, HiOutlineLogout, HiOutlineUserCircle } from 'react-icons/hi';
 import { useTheme } from '../context/ThemeContext';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../context/auth';
 import { BACKEND_URL } from '../context/constants';
 
 export default function Navbar() {
-
+    const navigate = useNavigate();
     const isAuthenticated = useAuth((state) => state.isAuthenticated);
-    console.log("isAuthenticated", isAuthenticated);
-
     const { dark, toggleTheme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
@@ -22,45 +20,43 @@ export default function Navbar() {
     ];
 
     const logout = async () => {
-
-        let res = await fetch(`${BACKEND_URL}/auth/logout`, {
-            method: 'POST',
-            headers: {
-                "content-type": "application/json"
-            },
-            credentials: "include"
-        });
-        let response = await res.json();
-
-        setTimeout(() => {
-            window.location.href = '/'
-        }, 1000);
-
-    }
+        try {
+            await fetch(`${BACKEND_URL}/auth/logout`, {
+                method: 'POST',
+                headers: { "content-type": "application/json" },
+                credentials: "include"
+            });
+            window.location.href = '/';
+        } catch (err) {
+            console.error("Logout failed", err);
+        }
+    };
 
     return (
-        <nav className="sticky top-0 z-50 w-full border-b backdrop-blur-lg bg-white/70 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800 transition-all duration-300">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
-                <div className="flex items-center justify-between h-14">
+        <nav className="sticky top-0 z-50 w-full border-b backdrop-blur-xl bg-white/80 dark:bg-slate-950/80 border-slate-200/50 dark:border-slate-800/50 transition-all">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="flex items-center justify-between h-20">
 
-                    <Link to="/" className="flex items-center gap-2.5 group transition-transform active:scale-95">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center">
-                            <img src='/icon.svg' alt="logo" className="w-full h-full" />
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 p-2 shadow-lg shadow-sky-500/20">
+                            <img src='/icon.svg' alt="logo" className="w-full h-full brightness-0 invert" />
                         </div>
-                        <span className="text-2xl font-black bg-gradient-to-r from-sky-600 to-emerald-600 dark:from-sky-400 dark:to-emerald-400 bg-clip-text text-transparent tracking-tight">
+                        <span className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                             ClinAware
                         </span>
                     </Link>
 
+                    {/* Desktop Nav */}
                     {isAuthenticated && (
-                        <div className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-900/50 p-1 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
+                        <div className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-900/40 p-1.5 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     to={link.path}
-                                    className={`px-5 py-2 rounded-xl text-sm font-bold transition-all ${location.pathname === link.path
+                                    className={`px-6 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${location.pathname === link.path
                                         ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-sm'
-                                        : 'text-slate-600 dark:text-slate-400 hover:text-sky-500'
+                                        : 'text-slate-500 dark:text-slate-400 hover:text-sky-500'
                                         }`}
                                 >
                                     {link.name}
@@ -69,82 +65,44 @@ export default function Navbar() {
                         </div>
                     )}
 
-                    <div className="flex items-center gap-3">
+                    {/* Actions */}
+                    <div className="flex items-center gap-4">
                         <button
                             onClick={toggleTheme}
-                            className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:border-sky-500 transition-all shadow-sm"
+                            className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:ring-2 ring-slate-200 dark:ring-slate-800 transition-all"
                         >
                             {dark ? <HiOutlineSun size={20} className="text-amber-400" /> : <HiOutlineMoon size={20} className="text-sky-600" />}
                         </button>
 
                         {isAuthenticated ? (
-                            <div className="flex items-center gap-3">
-                                <button className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold shadow-lg shadow-sky-200 dark:shadow-none transition-all active:scale-95 text-sm">
+                            <div className="flex items-center gap-2">
+                                <button className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm shadow-md shadow-sky-500/20 transition-all">
                                     <HiOutlineUpload size={18} />
                                     <span>Upload Scan</span>
                                 </button>
-
-                                <div className="h-10 w-10 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-sky-500 cursor-pointer hover:border-sky-500 transition-all">
-                                    <HiOutlineUserCircle size={26} />
-                                </div>
-
                                 <button
-                                    className="p-2.5 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all"
-                                    title="Logout" onClick={() => logout()}
+                                    onClick={() => navigate('/profile')}
+                                    className="p-2 text-slate-400 hover:text-sky-500 transition-colors"
+                                >
+                                    <HiOutlineUserCircle size={28} />
+                                </button>
+                                <button
+                                    onClick={logout}
+                                    className="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-xl transition-all"
                                 >
                                     <HiOutlineLogout size={22} />
                                 </button>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-2">
-                                <Link to="/signin" className="px-5 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-sky-500">
-                                    Sign In
-                                </Link>
-                                <Link to="/signup" className="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold transition-all hover:opacity-90">
-                                    Get Started
-                                </Link>
-                            </div>
-                        )}
-
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="md:hidden p-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all"
-                        >
-                            {isOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[500px] border-b' : 'max-h-0'} bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800`}>
-                <div className="px-4 py-6 space-y-3">
-                    {isAuthenticated ? (
-                        <>
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    to={link.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className="block px-4 py-3 rounded-2xl text-base font-bold text-slate-700 dark:text-slate-300 hover:bg-sky-50 dark:hover:bg-sky-900/20 hover:text-sky-600 dark:hover:text-sky-400 transition-all"
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
-                            <button className="w-full flex items-center justify-center gap-2 px-5 py-4 rounded-2xl bg-sky-500 text-white font-bold shadow-lg">
-                                <HiOutlineUpload size={20} />
-                                <span>Upload Scan</span>
-                            </button>
-                        </>
-                    ) : (
-                        <div className="space-y-3">
-                            <Link to="/signin" className="block w-full text-center px-4 py-3 rounded-2xl font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                            <Link to="/signin" className="px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold hover:opacity-90 transition-all">
                                 Sign In
                             </Link>
-                            <Link to="/signup" className="block w-full text-center px-4 py-4 rounded-2xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900">
-                                Get Started
-                            </Link>
-                        </div>
-                    )}
+                        )}
+
+                        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-slate-600 dark:text-slate-400">
+                            {isOpen ? <HiX size={26} /> : <HiMenuAlt3 size={26} />}
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>

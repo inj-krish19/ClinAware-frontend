@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
     LuActivity, LuShieldPlus, LuNewspaper, LuArrowRight, LuUserPlus,
-    LuLayoutDashboard, LuBrain, LuZap, LuCircleCheck, LuTrendingUp
+    LuLayoutDashboard, LuCircleCheck, LuScanFace, LuFileText
 } from 'react-icons/lu';
 
 export default function Home() {
@@ -27,43 +27,52 @@ export default function Home() {
             color: "purple",
             stat: "Daily 8AM Updates"
         },
-        // skin: {
-        //     title: "OncoVision (Skin Cancer AI)",
-        //     subtitle: "Computer Vision & Deep Learning",
-        //     description: "An advanced Neural Network built on MobileNetV2 architecture. Classifies skin lesions into 7 diagnostic categories using the HAM10000 dataset.",
-        //     benefits: ["Early detection of Melanoma", "Accessible triage tool", "94%+ validation accuracy"],
-        //     icon: LuShieldPlus,
-        //     color: "sky",
-        //     stat: "7 Classes Detection"
-        // },
+        chronic: {
+            title: "Vitals Intelligence",
+            subtitle: "Multi-Input Binary Classification",
+            description: "Predictive analysis for Hypertension and Diabetes using either biometric form data or OCR-processed clinical log images.",
+            benefits: ["Early symptom detection", "Visual trend mapping", "Risk factor quantification"],
+            icon: LuActivity,
+            color: "red",
+            stat: "94.2% Accuracy"
+        },
+        vision: {
+            title: "Vision Report AI",
+            subtitle: "OCR & Clinical LLM Analysis",
+            description: "Transform complex PDF or image-based medical reports into structured summaries. Detects blood markers, cholesterol levels, and vital risk indices.",
+            benefits: ["Simplifies medical jargon", "Digital records archival", "Marker-by-marker breakdown"],
+            icon: LuScanFace,
+            color: "blue",
+            stat: "LLM-Powered Logic"
+        }
     };
 
     return (
         <main className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-[#030712] transition-colors duration-500 font-sans selection:bg-sky-500 selection:text-white">
-
+            {/* Ambient Background Glows */}
             <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-sky-500/10 dark:bg-sky-500/10 blur-[150px] rounded-full animate-pulse" />
             <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-emerald-500/10 dark:bg-emerald-500/5 blur-[120px] rounded-full" />
 
+            {/* Hero Section */}
             <section className="relative max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-16 flex flex-col items-center">
-
                 <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-sky-500/30 text-sky-700 dark:text-sky-300 text-xs font-semibold mb-8 shadow-lg shadow-sky-500/5 hover:scale-105 transition-transform cursor-pointer">
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                     </span>
-                    <span>Intelligent Healthcare Intelligence </span>
+                    <span>Intelligent Healthcare Intelligence</span>
                 </div>
 
                 <h1 className="max-w-4xl text-center text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
                     Predictive Insights for a<br className="hidden md:block" />
                     <span className="bg-gradient-to-r from-sky-500 via-blue-500 to-emerald-500 bg-clip-text text-transparent">
-                        Healthier Tomorrow
+                        {" "}Healthier Tomorrow
                     </span>
                 </h1>
 
                 <p className="max-w-2xl text-center text-base md:text-lg text-slate-600 dark:text-slate-400 font-normal mb-10 leading-relaxed">
                     ClinAware bridges the gap between healthcare data silos and actionable wellness metrics through state-of-the-art
-                    Machine Learning and Computer Vision and Web Automation.
+                    Machine Learning, Computer Vision, and Web Automation.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
@@ -76,30 +85,32 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Metrics Section */}
             <section className="relative max-w-5xl mx-auto px-6 mb-24">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl p-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm">
                     <div className="flex flex-col items-center md:items-start p-4">
                         <span className="text-3xl font-extrabold text-slate-900 dark:text-white">94.2%</span>
-                        <span className="text-sm text-slate-500 dark:text-slate-400 mt-1">Classification Accuracy</span>
+                        <span className="text-sm text-slate-500 dark:text-slate-400 mt-1">Analysis Accuracy</span>
                     </div>
                     <div className="flex flex-col items-center md:items-start p-4 border-y md:border-y-0 md:border-x border-slate-200 dark:border-slate-800">
-                        <span className="text-3xl font-extrabold text-slate-900 dark:text-white">95% +</span>
-                        <span className="text-sm text-slate-500 dark:text-slate-400 mt-1">Insurance Prediction Efficiency</span>
+                        <span className="text-3xl font-extrabold text-slate-900 dark:text-white">Real-Time</span>
+                        <span className="text-sm text-slate-500 dark:text-slate-400 mt-1">Inference Speed</span>
                     </div>
                     <div className="flex flex-col items-center md:items-start p-4">
-                        <span className="text-3xl font-extrabold text-slate-900 dark:text-white">End-to-End</span>
-                        <span className="text-sm text-slate-500 dark:text-slate-400 mt-1">Health Ecosystem</span>
+                        <span className="text-3xl font-extrabold text-slate-900 dark:text-white">Secure</span>
+                        <span className="text-sm text-slate-500 dark:text-slate-400 mt-1">Clinical Encryption</span>
                     </div>
                 </div>
             </section>
 
+            {/* Interactive Service Explorer */}
             <section id="explore-services" className="relative max-w-7xl mx-auto px-6 py-16 mb-24">
                 <div className="text-center mb-12">
                     <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
                         The Core Intelligence Engine
                     </h2>
                     <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
-                        ClinAware utilizes isolated, fine-tuned services to solve distinct medical and billing challenges. Select a module to see how it works.
+                        ClinAware utilizes isolated, fine-tuned services to solve distinct medical and billing challenges.
                     </p>
                 </div>
 
@@ -108,6 +119,13 @@ export default function Home() {
                         const module = services[key];
                         const Icon = module.icon;
                         const isActive = activeTab === key;
+
+                        const labels = {
+                            insurance: 'Cost Model',
+                            news: 'News Automator',
+                            chronic: 'Vitals Intelligence',
+                            vision: 'Report AI'
+                        };
 
                         return (
                             <button
@@ -119,17 +137,17 @@ export default function Home() {
                                     }`}
                             >
                                 <Icon size={18} />
-                                {key === 'skin' ? 'Skin AI' : key === 'insurance' ? 'Cost Model' : 'News Automator'}
+                                {labels[key]}
                             </button>
                         );
                     })}
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xl items-center min-h-[400px]">
-
+                {/* Service Detail Card */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xl items-center min-h-[450px]">
                     <div className="lg:col-span-7 space-y-6">
                         <div className="space-y-2">
-                            <span className="text-xs font-bold tracking-widest text-sky-600 dark:text-sky-400 uppercase">
+                            <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase">
                                 {services[activeTab].subtitle}
                             </span>
                             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
@@ -157,22 +175,13 @@ export default function Home() {
                         </div>
                     </div>
 
+                    {/* Dynamic Visual Representation */}
                     <div className="lg:col-span-5 flex justify-center items-center">
-                        <div className="w-full max-w-sm h-72 rounded-2xl bg-slate-100 dark:bg-slate-800 flex flex-col items-center justify-center p-8 relative overflow-hidden border border-slate-200 dark:border-slate-700 group cursor-pointer">
+                        <div className="w-full max-w-sm h-72 rounded-2xl bg-slate-100 dark:bg-slate-800 flex flex-col items-center justify-center p-8 relative overflow-hidden border border-slate-200 dark:border-slate-700 group cursor-pointer transition-all duration-500 hover:shadow-2xl">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 blur-2xl rounded-full group-hover:bg-sky-500/20 transition-all duration-700" />
 
-                            {activeTab === 'skin' && (
-                                <div className="text-center flex flex-col items-center space-y-4">
-                                    <div className="w-16 h-16 rounded-full bg-sky-100 dark:bg-sky-500/20 flex items-center justify-center text-sky-600 dark:text-sky-400 text-3xl animate-bounce">
-                                        <LuShieldPlus />
-                                    </div>
-                                    <span className="text-lg font-bold text-slate-900 dark:text-white">Upload Lesion Image</span>
-                                    <span className="text-xs text-slate-500 dark:text-slate-400">Supported: JPG, PNG, DICOM</span>
-                                </div>
-                            )}
-
                             {activeTab === 'insurance' && (
-                                <div className="w-full space-y-4">
+                                <div className="w-full space-y-4 animate-in fade-in zoom-in duration-300">
                                     <div className="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
                                         <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Predicted Premium</span>
                                         <span className="font-bold text-emerald-600 dark:text-emerald-400">$13,245 / yr</span>
@@ -185,27 +194,60 @@ export default function Home() {
                             )}
 
                             {activeTab === 'news' && (
-                                <div className="w-full space-y-3">
+                                <div className="w-full space-y-3 animate-in fade-in zoom-in duration-300">
                                     <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-md w-3/4 animate-pulse"></div>
                                     <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded-md w-full animate-pulse delay-75"></div>
                                     <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded-md w-5/6 animate-pulse delay-150"></div>
                                     <div className="flex items-center gap-2 pt-2">
                                         <span className="px-2 py-1 text-[10px] bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-400 rounded-md font-bold">Medicine</span>
-                                        <span className="px-2 py-1 text-[10px] bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400 rounded-md font-bold">Healthcare</span>
+                                        <span className="px-2 py-1 text-[10px] bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400 rounded-md font-bold">Research</span>
                                     </div>
                                 </div>
                             )}
 
+                            {activeTab === 'chronic' && (
+                                <div className="w-full space-y-4 animate-in fade-in zoom-in duration-300">
+                                    <div className="flex flex-col gap-2 p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase">Hypertension Risk</span>
+                                            <span className="text-xs font-bold text-red-500">Elevated</span>
+                                        </div>
+                                        <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                            <div className="h-full bg-red-500 w-[85%]" />
+                                        </div>
+                                    </div>
+                                    <div className="p-3 bg-emerald-500/5 border border-emerald-500/20 rounded-xl flex justify-between">
+                                        <span className="text-[10px] text-slate-400 font-bold">GLUCOSE LEVEL</span>
+                                        <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">95 mg/dL</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'vision' && (
+                                <div className="w-full space-y-3 animate-in fade-in zoom-in duration-300">
+                                    <div className="relative p-4 bg-white dark:bg-slate-900 rounded-2xl border-2 border-dashed border-sky-500/30 flex flex-col items-center gap-2">
+                                        <LuFileText className="text-sky-500 text-3xl opacity-50" />
+                                        <div className="space-y-1 w-full">
+                                            <div className="h-1 bg-sky-500/40 rounded w-full animate-pulse" />
+                                            <div className="h-1 bg-sky-500/40 rounded w-3/4 animate-pulse" />
+                                        </div>
+                                        <span className="text-[10px] font-bold text-sky-500 uppercase">Scanning Report...</span>
+                                    </div>
+                                    <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
+                                </div>
+                            )}
+
                             <div className="absolute bottom-4 text-xs font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase">
-                                live: {services[activeTab].stat}
+                                system: {services[activeTab].stat}
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            {/* CTA Section */}
             <section className="relative max-w-6xl mx-auto px-6 pb-24">
-                <div className="mt-32 w-full bg-gradient-to-br from-white to-slate-100 dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 rounded-[3rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 shadow-2xl">
+                <div className="w-full bg-gradient-to-br from-white to-slate-100 dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 rounded-[3rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 shadow-2xl">
                     <div className="text-center md:text-left">
                         <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-4 italic">Join the ClinAware Network</h2>
                         <p className="text-slate-600 dark:text-slate-300 text-lg font-medium max-w-md">Securely track your diagnostic history and get personalized health trend analysis.</p>
@@ -215,7 +257,6 @@ export default function Home() {
                     </Link>
                 </div>
             </section>
-
         </main>
     );
 }
