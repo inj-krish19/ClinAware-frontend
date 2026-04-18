@@ -16,6 +16,7 @@ import Analysis from "./pages/Analysis";
 
 import News from "./pages/News";
 import Profile from "./pages/Profile";
+import VitalsCheck from "./pages/VitalsCheck";
 import useAuth from "./context/auth";
 import { useEffect } from "react";
 
@@ -58,6 +59,10 @@ function App() {
         />
         <Route path="/profile" element={
           isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
+        />
+
+        <Route path="/chronic" element={
+          isAuthenticated ? <VitalsCheck /> : <Navigate to="/signin" />}
         />
       </Routes>
       <Footer />

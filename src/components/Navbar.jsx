@@ -42,7 +42,7 @@ export default function Navbar() {
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 p-2 shadow-lg shadow-sky-500/20">
                             <img src='/icon.svg' alt="logo" className="w-full h-full brightness-0 invert" />
                         </div>
-                        <span className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                        <span className="text-2xl font-bold text-slate-900 dark:text-white hover:scale-105 hover:text-sky-400 transition">
                             ClinAware
                         </span>
                     </Link>

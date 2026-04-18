@@ -9,8 +9,18 @@ export default function Home() {
     const [activeTab, setActiveTab] = useState('insurance');
 
     const services = {
+
+        chronic: {
+            title: "Vitals Intelligence",
+            subtitle: "Multi-Input Binary Classification",
+            description: "Predictive analysis for Hypertension and Diabetes using either biometric form data or OCR-processed clinical log images.",
+            benefits: ["Early symptom detection", "Visual trend mapping", "Risk factor quantification"],
+            icon: LuActivity,
+            color: "red",
+            stat: "94.2% Accuracy"
+        },
         insurance: {
-            title: "Personalized Cost Predictor",
+            title: "Medical Insurance Cost Predictor",
             subtitle: "Regression-Based Machine Learning",
             description: "Calculates annual health insurance premiums using demographic biometrics (BMI, age, smoking status, region) using Random Forest Regressors.",
             benefits: ["Prevents medical billing shock", "Financial planning tool", "Correlative trend analysis"],
@@ -26,15 +36,6 @@ export default function Home() {
             icon: LuNewspaper,
             color: "purple",
             stat: "Daily 8AM Updates"
-        },
-        chronic: {
-            title: "Vitals Intelligence",
-            subtitle: "Multi-Input Binary Classification",
-            description: "Predictive analysis for Hypertension and Diabetes using either biometric form data or OCR-processed clinical log images.",
-            benefits: ["Early symptom detection", "Visual trend mapping", "Risk factor quantification"],
-            icon: LuActivity,
-            color: "red",
-            stat: "94.2% Accuracy"
         },
         vision: {
             title: "Vision Report AI",
