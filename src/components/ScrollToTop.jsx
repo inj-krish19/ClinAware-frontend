@@ -1,48 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { LuChevronUp } from "react-icons/lu";
+import { LuArrowUp } from "react-icons/lu";
 
 export default function ScrollToTop() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const toggleVisibility = () => {
-            if (window.scrollY > 300) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
-        };
-
+        const toggleVisibility = () => setIsVisible(window.scrollY > 400);
         window.addEventListener("scroll", toggleVisibility);
         return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
     return (
-        <div className="fixed bottom-8 right-8 z-[999]">
+        <div className="fixed bottom-10 right-10 z-[90]">
             <button
                 onClick={scrollToTop}
                 className={`
-                    group flex items-center justify-center w-14 h-14 
-                    rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 
-                    text-white shadow-lg shadow-sky-200 dark:shadow-none 
-                    transition-all duration-500 transform
-                    ${isVisible ? "translate-y-0 opacity-100 scale-100" : "translate-y-10 opacity-0 scale-50 pointer-events-none"}
-                    hover:scale-110 active:scale-90 hover:rotate-3
+                    group relative flex items-center justify-center size-14
+                    rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800
+                    text-slate-900 dark:text-white shadow-2xl transition-all duration-500
+                    ${isVisible ? "translate-y-0 opacity-100 scale-100" : "translate-y-12 opacity-0 scale-75 pointer-events-none"}
+                    hover:border-sky-500 hover:-translate-y-2
                 `}
-                aria-label="Scroll to top"
             >
-                <span className="absolute inset-0 rounded-2xl bg-sky-400 animate-ping opacity-20 group-hover:hidden"></span>
+                {/* Subtle Inner Glow */}
+                <div className="absolute inset-0 rounded-2xl bg-sky-500/0 group-hover:bg-sky-500/5 transition-colors" />
 
-                <LuChevronUp
-                    size={28}
-                    className="relative transition-transform group-hover:-translate-y-1"
+                <LuArrowUp
+                    size={22}
+                    className="relative transition-transform group-hover:scale-110 group-hover:text-sky-500"
                 />
             </button>
         </div>

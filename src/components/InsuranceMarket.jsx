@@ -12,95 +12,78 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
         { id: 7, name: "Medicare Select", company: "Tata AIG", hospitals: 225, room: "Single Pvt AC", premium: 857, url: "https://www.tataaig.com/health-insurance" },
         { id: 8, name: "My Health Care", company: "Tata AIG", hospitals: 170, room: "Single Pvt AC", premium: 670, url: "https://www.tataaig.com/health-insurance" },
         { id: 9, name: "Sarvah - Uttam", company: "ManipalCigna", hospitals: 174, room: "Single Pvt AC", premium: 935, url: "https://www.manipalcigna.com/" },
-        { id: 10, name: "Flexi Health", company: "Universal Sompo", hospitals: 260, room: "No Room Rent Limit", premium: 1119, url: "https://www.universalsompo.com/" },
-        { id: 11, name: "Health Gain 3.0", company: "IndusInd (RGI)", hospitals: 173, room: "Single Private AC", premium: 948, url: "https://www.reliancegeneral.co.in/" },
-        { id: 12, name: "Family Health Protector", company: "IFFCO Tokio", hospitals: 87, room: "No Room Rent Limit", premium: 974, url: "https://www.iffcotokio.co.in/" },
-        { id: 13, name: "A Plus Silver", company: "Universal Sompo", hospitals: 260, room: "No Room Rent Limit", premium: 835, url: "https://www.universalsompo.com/" },
-        { id: 14, name: "LiveWise", company: "Liberty General", hospitals: 135, room: "No Room Rent Limit", premium: 742, url: "https://www.libertyinsurance.in/" },
-        { id: 15, name: "Bharat X", company: "Acko", hospitals: 149, room: "Single Private AC", premium: 732, url: "https://www.acko.com/" },
-        { id: 16, name: "OneHealth Support Plus", company: "Magma HDI", hospitals: 151, room: "No Room Rent Limit", premium: 894, url: "https://www.magma-hdi.co.in/" },
-        { id: 17, name: "Marvel", company: "Zuno General", hospitals: 60, room: "Any Room", premium: 1006, url: "https://www.zunogi.com/" },
-        { id: 18, name: "Health Infinity", company: "IndusInd (RGI)", hospitals: 173, room: "No Room Rent Limit", premium: 1293, url: "https://www.reliancegeneral.co.in/" },
-        { id: 19, name: "Individual Health Protector", company: "IFFCO Tokio", hospitals: 87, room: "Single Pvt AC", premium: 1667, url: "https://www.iffcotokio.co.in/" }
+        { id: 10, name: "Flexi Health", company: "Universal Sompo", hospitals: 260, room: "No Room Rent Limit", premium: 1119, url: "https://www.universalsompo.com/" }
     ];
 
-    // LOGIC: Find top 3 closest matches to the Regressor result
     const processedPlans = rawData
-        .map(plan => ({
-            ...plan,
-            diff: Math.abs(plan.premium - aiPredictedMonthly)
-        }))
-        .sort((a, b) => a.diff - b.diff) // Sort by closest price
-        .map((plan, index) => ({
-            ...plan,
-            isRecommended: index < 3 // Only Top 3 get the badge
-        }));
+        .map(plan => ({ ...plan, diff: Math.abs(plan.premium - aiPredictedMonthly) }))
+        .sort((a, b) => a.diff - b.diff)
+        .map((plan, index) => ({ ...plan, isRecommended: index < 3 }));
 
     const externalLinks = [
         { name: "Policy Bazaar", url: "https://www.policybazaar.com" },
-        { name: "ICICI Lombard", url: "https://www.icicilombard.com" },
         { name: "Ditto Insurance", url: "https://www.joinditto.com" },
-        { name: "Niva Bupa", url: "https://www.nivabupa.com" },
-        { name: "National Insurance", url: "https://nationalinsurance.nic.co.in" },
-        { name: "Star Health", url: "https://www.starhealth.in" },
         { name: "HDFC ERGO", url: "https://www.hdfcergo.com" },
+        { name: "Niva Bupa", url: "https://www.nivabupa.com" },
     ];
 
     return (
-        <div className="mt-16 pb-20 grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-3 space-y-6">
-                <div className="flex items-center gap-3 mb-8">
-                    <div className="w-1.5 h-8 bg-sky-500 rounded-full" />
-                    <h2 className="text-3xl font-black tracking-tighter uppercase dark:text-white">
-                        Market <span className="text-sky-500">Selection</span>
+        <div className="mt-32 pb-32 grid grid-cols-1 lg:grid-cols-4 gap-12">
+            <div className="lg:col-span-3 space-y-10">
+                <div className="flex items-center gap-4 mb-12">
+                    <div className="w-2 h-10 bg-purple-600 rounded-full" />
+                    <h2 className="text-4xl font-black tracking-tighter uppercase dark:text-white">
+                        Market <span className="text-purple-600">Cross-Reference</span>
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {processedPlans.map((plan) => (
-                        <div key={plan.id} className={`relative p-6 rounded-[2.5rem] border-2 transition-all duration-500 ${plan.isRecommended ? 'border-sky-500 bg-sky-500/5 shadow-xl shadow-sky-500/10 scale-[1.02]' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-80'}`}>
+                        <div key={plan.id} className={`relative p-10 rounded-[3.5rem] border-2 transition-all duration-500 ${plan.isRecommended ? 'border-purple-500 bg-purple-500/5 shadow-2xl shadow-purple-500/10 scale-[1.03]' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-60 hover:opacity-100'}`}>
                             {plan.isRecommended && (
-                                <div className="absolute -top-3 left-8 bg-sky-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg z-10">
-                                    <LuShieldCheck size={14} /> CLINAWARE RECOMMENDED
+                                <div className="absolute -top-4 left-10 bg-purple-600 text-white text-[10px] font-black px-6 py-2 rounded-full flex items-center gap-2 shadow-xl z-10 tracking-widest">
+                                    <LuShieldCheck size={16} /> CLINAWARE PREFERRED
                                 </div>
                             )}
 
-                            <div className="flex justify-between items-start mb-6">
+                            <div className="flex justify-between items-start mb-8">
                                 <div>
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{plan.company}</p>
-                                    <h4 className="text-xl font-black dark:text-white tracking-tight">{plan.name}</h4>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{plan.company}</p>
+                                    <h4 className="text-2xl font-black dark:text-white tracking-tight leading-none">{plan.name}</h4>
                                 </div>
-                                <p className="text-2xl font-black text-slate-900 dark:text-white">₹{plan.premium}<span className="text-[10px] text-slate-400">/mo</span></p>
-                            </div>
-
-                            <div className="space-y-3 mb-8">
-                                <div className="flex items-center gap-3 text-[11px] font-bold text-slate-500 dark:text-slate-400">
-                                    <LuHospital className="text-sky-500" size={14} /> {plan.hospitals} Cashless Hospitals
-                                </div>
-                                <div className="flex items-center gap-3 text-[11px] font-bold text-slate-500 dark:text-slate-400">
-                                    <LuActivity className="text-sky-500" size={14} /> {plan.room}
+                                <div className="text-right">
+                                    <p className="text-3xl font-black text-purple-600 tabular-nums">₹{plan.premium}</p>
+                                    <p className="text-[9px] font-black text-slate-400 uppercase">Per Month</p>
                                 </div>
                             </div>
 
-                            <a href={plan.url} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 w-full py-4 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-sky-500 hover:text-white transition-all">
-                                Checkout on PolicyBazaar <LuExternalLink size={14} />
+                            <div className="space-y-4 mb-10">
+                                <div className="flex items-center gap-4 text-[12px] font-bold text-slate-600 dark:text-slate-400">
+                                    <LuHospital className="text-purple-500" size={18} /> {plan.hospitals} Network Centers
+                                </div>
+                                <div className="flex items-center gap-4 text-[12px] font-bold text-slate-600 dark:text-slate-400">
+                                    <LuActivity className="text-fuchsia-500" size={18} /> {plan.room}
+                                </div>
+                            </div>
+
+                            <a href={plan.url} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 w-full py-5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-[1.5rem] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-purple-600 hover:text-white transition-all shadow-lg">
+                                Market Checkout <LuExternalLink size={16} />
                             </a>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Sidebar with direct links */}
             <div className="lg:col-span-1">
-                <div className="sticky top-28 p-8 rounded-[2.5rem] bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
-                    <h3 className="text-sm font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2 dark:text-white">
-                        <LuInfo className="text-sky-500" /> Insurer Portals
+                <div className="sticky top-32 p-10 rounded-[3rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl">
+                    <h3 className="text-xs font-black uppercase tracking-[0.3em] mb-8 flex items-center gap-3 dark:text-white">
+                        <LuInfo className="text-purple-500" size={20} /> Portals
                     </h3>
-                    <div className="space-y-4">
+                    <div className="space-y-5">
                         {externalLinks.map((link, i) => (
-                            <a key={i} href={link.url} target="_blank" rel="noreferrer" className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-sky-500 transition-all group">
-                                <span className="text-xs font-black dark:text-white">{link.name}</span>
-                                <LuExternalLink size={14} className="text-slate-400 group-hover:text-sky-500" />
+                            <a key={i} href={link.url} target="_blank" rel="noreferrer" className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/50 rounded-[1.5rem] border border-transparent hover:border-purple-500 hover:bg-white transition-all group">
+                                <span className="text-[11px] font-black dark:text-white uppercase tracking-widest">{link.name}</span>
+                                <LuExternalLink size={16} className="text-slate-400 group-hover:text-purple-500" />
                             </a>
                         ))}
                     </div>
