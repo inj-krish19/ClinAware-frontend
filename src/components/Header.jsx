@@ -13,9 +13,9 @@ const ModuleCard = ({ title, description, Icon, colorClass, delay }) => (
         <div className={`w-14 h-14 rounded-2xl mb-6 flex items-center justify-center text-2xl shadow-sm transition-transform group-hover:scale-110 group-hover:rotate-3 ${colorClass}`}>
             <Icon />
         </div>
-        <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 tracking-tight font-jakarta">{title}</h3>
+        <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3   font-jakarta">{title}</h3>
         <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-6 text-[13px] font-medium font-inter">{description}</p>
-        <button className="flex items-center gap-2 text-xs font-black text-sky-500 uppercase tracking-widest group-hover:gap-4 transition-all">
+        <button className="flex items-center gap-2 text-xs font-black text-sky-500 uppercase   group-hover:gap-4 transition-all">
             Launch Module <LuArrowRight />
         </button>
         {/* Subtle accent glow on hover */}
@@ -38,10 +38,10 @@ export default function Header() {
                         className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm mb-8"
                     >
                         <LuZap className="text-amber-500 size-3" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Next-Gen Clinical AI</span>
+                        <span className="text-[10px] font-black uppercase   text-slate-500">Next-Gen Clinical AI</span>
                     </motion.div>
 
-                    <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter leading-[0.95] font-jakarta">
+                    <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white   leading-[0.95] font-jakarta">
                         Intelligent Insights for <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-emerald-500 to-sky-400">
                             Modern Healthcare.
@@ -75,7 +75,7 @@ export default function Header() {
                         delay={0.3}
                     />
                     <ModuleCard
-                        title="News Node"
+                        title="Clinical News"
                         description="Daily clinical breakthroughs summarized into actionable news."
                         Icon={LuNewspaper}
                         colorClass="bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"

@@ -32,7 +32,7 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
             <div className="lg:col-span-3 space-y-10">
                 <div className="flex items-center gap-4 mb-12">
                     <div className="w-2 h-10 bg-purple-600 rounded-full" />
-                    <h2 className="text-4xl font-black tracking-tighter uppercase dark:text-white">
+                    <h2 className="text-4xl font-black   uppercase dark:text-white">
                         Market <span className="text-purple-600">Cross-Reference</span>
                     </h2>
                 </div>
@@ -41,15 +41,15 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
                     {processedPlans.map((plan) => (
                         <div key={plan.id} className={`relative p-10 rounded-[3.5rem] border-2 transition-all duration-500 ${plan.isRecommended ? 'border-purple-500 bg-purple-500/5 shadow-2xl shadow-purple-500/10 scale-[1.03]' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-60 hover:opacity-100'}`}>
                             {plan.isRecommended && (
-                                <div className="absolute -top-4 left-10 bg-purple-600 text-white text-[10px] font-black px-6 py-2 rounded-full flex items-center gap-2 shadow-xl z-10 tracking-widest">
+                                <div className="absolute -top-4 left-10 bg-purple-600 text-white text-[10px] font-black px-6 py-2 rounded-full flex items-center gap-2 shadow-xl z-10  ">
                                     <LuShieldCheck size={16} /> CLINAWARE PREFERRED
                                 </div>
                             )}
 
                             <div className="flex justify-between items-start mb-8">
                                 <div>
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{plan.company}</p>
-                                    <h4 className="text-2xl font-black dark:text-white tracking-tight leading-none">{plan.name}</h4>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase   mb-1">{plan.company}</p>
+                                    <h4 className="text-2xl font-black dark:text-white   leading-none">{plan.name}</h4>
                                 </div>
                                 <div className="text-right">
                                     <p className="text-3xl font-black text-purple-600 tabular-nums">₹{plan.premium}</p>
@@ -66,7 +66,7 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
                                 </div>
                             </div>
 
-                            <a href={plan.url} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 w-full py-5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-[1.5rem] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-purple-600 hover:text-white transition-all shadow-lg">
+                            <a href={plan.url} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 w-full py-5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-[1.5rem] font-black text-[11px] uppercase   hover:bg-purple-600 hover:text-white transition-all shadow-lg">
                                 Market Checkout <LuExternalLink size={16} />
                             </a>
                         </div>
@@ -76,13 +76,13 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
 
             <div className="lg:col-span-1">
                 <div className="sticky top-32 p-10 rounded-[3rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl">
-                    <h3 className="text-xs font-black uppercase tracking-[0.3em] mb-8 flex items-center gap-3 dark:text-white">
+                    <h3 className="text-xs font-black uppercase   mb-8 flex items-center gap-3 dark:text-white">
                         <LuInfo className="text-purple-500" size={20} /> Portals
                     </h3>
                     <div className="space-y-5">
                         {externalLinks.map((link, i) => (
                             <a key={i} href={link.url} target="_blank" rel="noreferrer" className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/50 rounded-[1.5rem] border border-transparent hover:border-purple-500 hover:bg-white transition-all group">
-                                <span className="text-[11px] font-black dark:text-white uppercase tracking-widest">{link.name}</span>
+                                <span className="text-[11px] font-black dark:text-white uppercase  ">{link.name}</span>
                                 <LuExternalLink size={16} className="text-slate-400 group-hover:text-purple-500" />
                             </a>
                         ))}

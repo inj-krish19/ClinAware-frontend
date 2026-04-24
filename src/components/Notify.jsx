@@ -54,7 +54,7 @@ export default function Notify({ details, onClose }) {
             </div>
 
             <div className="flex-1">
-                <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${config.text} opacity-70`}>
+                <p className={`text-[10px] font-black uppercase   mb-0.5 ${config.text} opacity-70`}>
                     {config.label} • {status}
                 </p>
                 <p className="text-[13px] font-bold text-slate-700 dark:text-slate-200 leading-tight">

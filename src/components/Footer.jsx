@@ -13,7 +13,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 pb-20">
                     {/* Brand Column */}
                     <div className="lg:col-span-4 space-y-8">
-                        <div className="flex items-center gap-3 text-2xl font-black text-slate-900 dark:text-white tracking-tighter font-jakarta">
+                        <div className="flex items-center gap-3 text-2xl font-black text-slate-900 dark:text-white   font-jakarta">
                             <div className="size-10 bg-gradient-to-br from-sky-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                                 <img src='/icon.svg' alt="ClinAware" className="w-6 h-6 brightness-0 invert" />
                             </div>
@@ -34,7 +34,7 @@ export default function Footer() {
                     {/* Links Columns */}
                     <div className="lg:col-span-4 grid grid-cols-2 gap-8">
                         <div>
-                            <h4 className="text-slate-900 dark:text-white font-black mb-8 text-[10px] uppercase tracking-[0.2em] font-jakarta">Infrastructure</h4>
+                            <h4 className="text-slate-900 dark:text-white font-black mb-8 text-[10px] uppercase   font-jakarta">Infrastructure</h4>
                             <ul className="space-y-4 text-sm font-semibold">
                                 {['Dashboard', 'Risk Analysis', 'Cost Predictor', 'Clinical News'].map((item) => (
                                     <li key={item}>
@@ -44,7 +44,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h4 className="text-slate-900 dark:text-white font-black mb-8 text-[10px] uppercase tracking-[0.2em] font-jakarta">Governance</h4>
+                            <h4 className="text-slate-900 dark:text-white font-black mb-8 text-[10px] uppercase   font-jakarta">Governance</h4>
                             <ul className="space-y-4 text-sm font-semibold">
                                 {['Documentation', 'Privacy Protocol', 'Terms', 'AI Ethics'].map((item) => (
                                     <li key={item}>
@@ -71,14 +71,14 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <p className="text-slate-400 text-[11px] font-bold uppercase tracking-widest font-mono">
+                    <p className="text-slate-400 text-[11px] font-bold uppercase   font-mono">
                         © {currentYear} ClinAware // Precision Health OS
                     </p>
 
                     <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mr-2">Architects</span>
+                        <span className="text-[10px] font-black text-slate-400 uppercase   mr-2">Architects</span>
                         {['Kavan Prajapati', 'Krish Shah'].map((name) => (
-                            <span key={name} className="px-5 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-[10px] font-black uppercase tracking-tight shadow-sm">
+                            <span key={name} className="px-5 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-[10px] font-black uppercase   shadow-sm">
                                 {name}
                             </span>
                         ))}

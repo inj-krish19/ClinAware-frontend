@@ -39,11 +39,11 @@ export default function Loading() {
 
             <div className="mt-16 flex flex-col items-center space-y-6">
                 <div className="text-center">
-                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter font-jakarta">
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white   font-jakarta">
                         ClinAware
                     </h2>
-                    <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em] mt-1">
-                        Precision Health Node
+                    <p className="text-[10px] font-black text-emerald-500 uppercase   mt-1">
+                        Precision Health
                     </p>
                 </div>
 
@@ -59,7 +59,7 @@ export default function Loading() {
                 <motion.p
                     animate={{ opacity: [0.4, 1, 0.4] }}
                     transition={{ repeat: Infinity, duration: 2 }}
-                    className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono"
+                    className="text-[10px] font-bold text-slate-400 uppercase   font-mono"
                 >
                     System_Initialization_In_Progress...
                 </motion.p>
