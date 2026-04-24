@@ -19,6 +19,8 @@ import Profile from "./pages/Profile";
 import VitalsCheck from "./pages/VitalsCheck";
 import useAuth from "./context/auth";
 import { useEffect } from "react";
+import ReportAI from "./pages/ReportAI";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/admin" element={<AdminPanel />} />
 
 
         <Route path="/predict" element={
@@ -61,6 +64,9 @@ function App() {
           isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
         />
 
+        <Route path="/vision" element={
+          isAuthenticated ? <ReportAI /> : <Navigate to="/signin" />}
+        />
         <Route path="/chronic" element={
           isAuthenticated ? <VitalsCheck /> : <Navigate to="/signin" />}
         />

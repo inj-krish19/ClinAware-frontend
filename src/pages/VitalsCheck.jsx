@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     LuActivity, LuHeart, LuDroplets, LuInfo,
-    LuHistory, LuCircleCheck, LuCircleAlert
+    LuHistory, LuCircleCheck, LuCircleAlert, LuChevronRight, LuStethoscope
 } from 'react-icons/lu';
 import { BACKEND_URL } from '../context/constants';
 
@@ -16,10 +17,7 @@ const VitalsCheck = () => {
     const [history, setHistory] = useState([]);
     const [message, setMessage] = useState(null);
 
-    // Fetch history on mount
-    useEffect(() => {
-        fetchHistory();
-    }, []);
+    useEffect(() => { fetchHistory(); }, []);
 
     const fetchHistory = async () => {
         try {
@@ -36,7 +34,6 @@ const VitalsCheck = () => {
         setLoading(true);
         setMessage(null);
 
-        // Simple mock classification logic (usually handled by backend ML)
         const bpStatus = parseInt(formData.systolic) > 130 ? "Hypertension Risk" : "Normal";
         const diabetesStatus = parseInt(formData.glucose) > 100 ? "Elevated Glucose" : "Normal";
 
@@ -56,164 +53,190 @@ const VitalsCheck = () => {
 
             const result = await response.json();
             if (result.code === 201) {
-                setMessage({ type: 'success', text: result.message });
-                fetchHistory(); // Refresh list
+                setMessage({ type: 'success', text: "Vitals Synchronized with Clinical Core" });
+                fetchHistory();
+                setFormData({ systolic: '', diastolic: '', glucose: '', is_fasting: false });
             } else {
                 setMessage({ type: 'error', text: result.message });
             }
         } catch (err) {
-            setMessage({ type: 'error', text: "Connection to clinical server failed." });
+            setMessage({ type: 'error', text: "Clinical Server Connection Timeout" });
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#030712] p-6 font-sans">
-            <div className="max-w-5xl mx-auto space-y-10">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-white p-6 lg:p-12 font-sans selection:bg-sky-500/30 transition-colors duration-300">
+            <div className="max-w-6xl mx-auto space-y-16">
 
-                {/* Header */}
-                <div className="flex flex-col gap-1">
-                    <h1 className="text-3xl font-bold font-jakarta text-slate-900 dark:text-white">
-                        Vitals Intelligence
-                    </h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm">
-                        Binary classification for hypertension and diabetic risk markers.
-                    </p>
-                </div>
+                {/* Header Section */}
+                <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2.5 bg-sky-500/10 rounded-xl border border-sky-500/20">
+                                <LuStethoscope className="text-sky-500" size={24} />
+                            </div>
+                            <h1 className="text-4xl font-black uppercase">
+                                Vitals <span className="text-sky-500">Intelligence</span>
+                            </h1>
+                        </div>
+                        <p className="text-slate-500 dark:text-slate-400 text-[10px] font-black uppercase ml-14">
+                            Neural classification • Real-time diagnostics
+                        </p>
+                    </div>
+                </header>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     {/* Input Form Section */}
-                    <div className="lg:col-span-7 space-y-6">
-                        <form onSubmit={handleAnalyze} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-8 shadow-sm">
-                            <div className="space-y-8">
+                    <div className="lg:col-span-7">
+                        <form onSubmit={handleAnalyze} className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-[3rem] p-10 backdrop-blur-md relative overflow-hidden shadow-xl dark:shadow-none">
+                            <div className="absolute top-0 right-0 p-8 opacity-[0.03] dark:opacity-5 pointer-events-none">
+                                <LuActivity size={120} className="text-sky-500" />
+                            </div>
 
-                                {/* BP Section */}
-                                <div className="space-y-4">
-                                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
-                                        <LuHeart className="text-red-500" /> Blood Pressure (mmHg)
+                            <div className="relative z-10 space-y-10">
+                                <div className="space-y-6">
+                                    <label className="flex items-center gap-3 text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase">
+                                        <LuHeart className="text-rose-500" size={18} /> Arterial Pressure (mmHg)
                                     </label>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <input
-                                            required
-                                            type="number"
-                                            placeholder="Systolic"
-                                            className="bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-4 text-center font-mono focus:ring-2 focus:ring-sky-500 transition-all text-slate-900 dark:text-white"
-                                            value={formData.systolic}
-                                            onChange={(e) => setFormData({ ...formData, systolic: e.target.value })}
-                                        />
-                                        <input
-                                            required
-                                            type="number"
-                                            placeholder="Diastolic"
-                                            className="bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-4 text-center font-mono focus:ring-2 focus:ring-sky-500 transition-all text-slate-900 dark:text-white"
-                                            value={formData.diastolic}
-                                            onChange={(e) => setFormData({ ...formData, diastolic: e.target.value })}
-                                        />
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <input
+                                                required type="number" placeholder="SYSTOLIC"
+                                                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 text-center font-mono focus:border-sky-500 dark:focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-700 outline-none"
+                                                value={formData.systolic}
+                                                onChange={(e) => setFormData({ ...formData, systolic: e.target.value })}
+                                            />
+                                            <p className="text-[9px] text-center font-bold text-slate-400 dark:text-slate-600 uppercase">Peak Pulse</p>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <input
+                                                required type="number" placeholder="DIASTOLIC"
+                                                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 text-center font-mono focus:border-sky-500 dark:focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-700 outline-none"
+                                                value={formData.diastolic}
+                                                onChange={(e) => setFormData({ ...formData, diastolic: e.target.value })}
+                                            />
+                                            <p className="text-[9px] text-center font-bold text-slate-400 dark:text-slate-600 uppercase">Resting Pulse</p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Glucose Section */}
-                                <div className="space-y-4">
-                                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
-                                        <LuDroplets className="text-sky-500" /> Blood Glucose (mg/dL)
+                                <div className="space-y-6">
+                                    <label className="flex items-center gap-3 text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase">
+                                        <LuDroplets className="text-sky-500" size={18} /> Serum Glucose (mg/dL)
                                     </label>
                                     <div className="flex flex-col sm:flex-row gap-4">
                                         <input
-                                            required
-                                            type="number"
-                                            placeholder="Enter glucose level"
-                                            className="flex-1 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-4 font-mono focus:ring-2 focus:ring-sky-500 transition-all text-slate-900 dark:text-white"
+                                            required type="number" placeholder="CONCENTRATION LEVEL"
+                                            className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 font-mono focus:border-sky-500 dark:focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-700 outline-none"
                                             value={formData.glucose}
                                             onChange={(e) => setFormData({ ...formData, glucose: e.target.value })}
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setFormData({ ...formData, is_fasting: !formData.is_fasting })}
-                                            className={`px-6 py-4 rounded-2xl text-xs font-black transition-all ${formData.is_fasting ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/20' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}
+                                            className={`px-8 py-5 rounded-2xl text-[10px] font-black uppercase transition-all ${formData.is_fasting ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/20' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700'}`}
                                         >
-                                            {formData.is_fasting ? 'Fasting Active' : 'Set Fasting'}
+                                            {formData.is_fasting ? 'Fasting Active' : 'Set Fasting State'}
                                         </button>
                                     </div>
                                 </div>
 
-                                {message && (
-                                    <div className={`p-4 rounded-2xl flex items-center gap-3 text-sm font-medium ${message.type === 'success' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-red-500/10 text-red-600'}`}>
-                                        {message.type === 'success' ? <LuCircleCheck /> : <LuCircleAlert />}
-                                        {message.text}
-                                    </div>
-                                )}
+                                <AnimatePresence>
+                                    {message && (
+                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                                            className={`p-5 rounded-2xl flex items-center gap-3 text-[11px] font-black uppercase ${message.type === 'success' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-500 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-600 dark:text-rose-500 border border-rose-500/20'}`}>
+                                            {message.type === 'success' ? <LuCircleCheck size={18} /> : <LuCircleAlert size={18} />}
+                                            {message.text}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
 
                                 <button
                                     disabled={loading}
-                                    className="w-full bg-slate-900 dark:bg-sky-600 text-white font-black py-4 rounded-2xl hover:bg-sky-500 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+                                    className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black py-6 rounded-[1.5rem] hover:bg-sky-500 dark:hover:bg-sky-400 transition-all flex items-center justify-center gap-3 uppercase text-xs shadow-2xl shadow-sky-900/10 dark:shadow-white/5"
                                 >
-                                    {loading ? "Analyzing..." : "Sync Vitals Data"} <LuActivity size={18} />
+                                    {loading ? "Processing Clinical Data..." : "Compute Health Analysis"}
+                                    <LuChevronRight size={18} />
                                 </button>
                             </div>
                         </form>
                     </div>
 
-                    {/* Stats/Information Section */}
-                    <div className="lg:col-span-5 space-y-6">
-                        <div className="bg-sky-600 text-white rounded-[2.5rem] p-8 relative overflow-hidden shadow-xl">
-                            <div className="relative z-10 space-y-4">
-                                <h3 className="text-xl font-jakarta font-bold">Clinical Analysis</h3>
-                                <p className="text-sky-100 text-sm leading-relaxed">
-                                    Our ML model uses standard medical thresholds:
-                                </p>
-                                <ul className="space-y-3 text-xs font-medium">
-                                    <li className="flex justify-between py-2 border-b border-sky-400/30">
-                                        <span>Hypertension Range</span>
-                                        <span className="font-mono">{'>'} 130/80</span>
-                                    </li>
-                                    <li className="flex justify-between py-2 border-b border-sky-400/30">
-                                        <span>Diabetic Range</span>
-                                        <span className="font-mono">{'>'} 126 mg/dL</span>
-                                    </li>
-                                </ul>
+                    {/* Sidebar */}
+                    <div className="lg:col-span-5 flex flex-col gap-8">
+                        <div className="bg-gradient-to-br from-sky-600 to-indigo-700 text-white rounded-[3rem] p-10 relative overflow-hidden shadow-2xl">
+                            <div className="relative z-10 space-y-8">
+                                <div className="space-y-1">
+                                    <h3 className="text-2xl font-black uppercase italic">Diagnostic Standards</h3>
+                                    <p className="text-sky-100/60 text-[10px] font-bold uppercase">WHO Clinical Protocols</p>
+                                </div>
+                                <div className="space-y-4">
+                                    <MetricRow label="Hypertension" value="> 130/80" />
+                                    <MetricRow label="Normal Glucose" value="70 - 99" />
+                                    <MetricRow label="Diabetic Risk" value="> 126" />
+                                </div>
                             </div>
-                            <LuHeart className="absolute -bottom-10 -right-10 text-sky-500/20 w-48 h-48" />
+                            <LuActivity className="absolute -bottom-10 -right-10 text-white/10 w-64 h-64 rotate-12" />
+                        </div>
+
+                        <div className="flex-1 bg-white dark:bg-slate-900/20 border border-slate-200 dark:border-slate-800/50 rounded-[3rem] p-10 border-dashed flex flex-col items-center justify-center text-center space-y-4">
+                            <LuInfo className="text-slate-400 dark:text-slate-700" size={32} />
+                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase leading-relaxed">
+                                Results are generated via <br /> <span className="text-slate-900 dark:text-slate-300">Ensemble Gradient Boosting</span>
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 {/* History Section */}
-                <div className="space-y-6">
-                    <div className="flex items-center gap-3 text-slate-800 dark:text-slate-200">
-                        <LuHistory size={24} className="text-sky-500" />
-                        <h2 className="text-xl font-bold font-jakarta">Recent Activity</h2>
+                <div className="space-y-10">
+                    <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-6">
+                        <div className="flex items-center gap-4">
+                            <LuHistory size={20} className="text-sky-500" />
+                            <h2 className="text-2xl font-black uppercase">Clinical Logbook</h2>
+                        </div>
+                        <span className="text-[10px] font-black text-slate-400 dark:text-slate-600 uppercase">{history.length} RECORDS SYNCED</span>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {history.length > 0 ? history.map((log, index) => (
-                            <div key={index} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 hover:shadow-md transition-all">
-                                <div className="flex justify-between items-start mb-4">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase">
-                                        {new Date(log.timestamp).toLocaleDateString()}
-                                    </span>
-                                    <span className={`px-2 py-1 rounded text-[10px] font-bold ${log.blood_pressure.status === 'Normal' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}`}>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                key={index}
+                                className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-8 hover:border-sky-500/50 dark:hover:border-slate-700 transition-all group shadow-sm dark:shadow-none"
+                            >
+                                <div className="flex justify-between items-start mb-8">
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase">Log Timestamp</span>
+                                        <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase italic">
+                                            {new Date(log.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                        </span>
+                                    </div>
+                                    <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase ${log.blood_pressure.status === 'Normal' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-500' : 'bg-rose-500/10 text-rose-600 dark:text-rose-500'}`}>
                                         {log.blood_pressure.status}
                                     </span>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <span className="block text-xs text-slate-500">Pressure</span>
-                                        <span className="text-lg font-mono font-bold dark:text-white">
-                                            {log.blood_pressure.systolic}/{log.blood_pressure.diastolic}
+                                    <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800/50 group-hover:border-sky-500/30 transition-colors">
+                                        <span className="block text-[8px] font-black text-slate-400 dark:text-slate-600 uppercase mb-2">Pressure</span>
+                                        <span className="text-xl font-mono font-black">
+                                            {log.blood_pressure.systolic}<span className="text-slate-300 dark:text-slate-600">/</span>{log.blood_pressure.diastolic}
                                         </span>
                                     </div>
-                                    <div>
-                                        <span className="block text-xs text-slate-500">Glucose</span>
-                                        <span className="text-lg font-mono font-bold dark:text-white">
-                                            {log.diabetes.glucose} <span className="text-[10px]">mg/dL</span>
+                                    <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800/50 group-hover:border-sky-500/30 transition-colors">
+                                        <span className="block text-[8px] font-black text-slate-400 dark:text-slate-600 uppercase mb-2">Glucose</span>
+                                        <span className="text-xl font-mono font-black">
+                                            {log.diabetes.glucose}<span className="text-sky-500 text-[10px] ml-1">MG</span>
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         )) : (
-                            <div className="col-span-full py-12 text-center border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl">
-                                <p className="text-slate-500 text-sm">No clinical logs found. Start your first analysis above.</p>
+                            <div className="col-span-full py-20 text-center border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[3rem]">
+                                <p className="text-slate-400 dark:text-slate-600 text-xs font-black uppercase italic">Database Empty • Awaiting Synchronization</p>
                             </div>
                         )}
                     </div>
@@ -222,5 +245,12 @@ const VitalsCheck = () => {
         </div>
     );
 };
+
+const MetricRow = ({ label, value }) => (
+    <div className="flex justify-between items-center py-4 border-b border-white/10 last:border-0">
+        <span className="text-[10px] font-black uppercase opacity-70">{label}</span>
+        <span className="font-mono text-sm font-bold bg-white/10 px-3 py-1 rounded-lg">{value}</span>
+    </div>
+);
 
 export default VitalsCheck;

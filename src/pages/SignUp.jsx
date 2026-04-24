@@ -58,7 +58,7 @@ export default function SignUp() {
                 className="w-full max-w-lg bg-white dark:bg-slate-900/60 backdrop-blur-xl shadow-2xl rounded-[2.5rem] p-8 md:p-12 border border-slate-200 dark:border-slate-800"
             >
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
+                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white   mb-3">
                         Join ClinAware
                     </h2>
                     <p className="text-slate-500 dark:text-slate-300 font-medium">
@@ -70,7 +70,7 @@ export default function SignUp() {
                 <form className="space-y-5" onSubmit={(e) => submitForm(e)}>
                     <div className="grid grid-cols-1  gap-5">
                         <div className="space-y-1.5">
-                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Full Name</label>
+                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase  ">Full Name</label>
                             <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
                                 <LuUser size={18} className="mr-3 text-slate-400" />
                                 <input type="text" placeholder="John" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" value={name} onChange={(e) => setName(e.target.value)} />
@@ -79,7 +79,7 @@ export default function SignUp() {
                     </div>
 
                     <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Email Address</label>
+                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase  ">Email Address</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
                             <LuMail size={18} className="mr-3 text-slate-400" />
                             <input type="email" placeholder="john@gmail.com" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -87,7 +87,7 @@ export default function SignUp() {
                     </div>
 
                     <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Password</label>
+                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase  ">Password</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500 transition-all">
                             <LuLock size={18} className="mr-3 text-slate-400" />
                             <input type="password" placeholder="••••••••" className="bg-transparent w-full outline-none text-slate-900 dark:text-white text-sm font-medium" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -119,15 +119,15 @@ export default function SignUp() {
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-lg w-full">
                 <div className="flex items-center gap-3 text-slate-400">
                     <LuShieldCheck className="text-emerald-500" />
-                    <span className="text-xs font-bold uppercase tracking-tighter">Secure Data</span>
+                    <span className="text-xs font-bold uppercase  ">Secure Data</span>
                 </div>
                 <div className="flex items-center gap-3 text-slate-400">
                     <LuGlobe className="text-sky-500" />
-                    <span className="text-xs font-bold uppercase tracking-tighter">Encrypted Cloud</span>
+                    <span className="text-xs font-bold uppercase  ">Encrypted Cloud</span>
                 </div>
                 <div className="flex items-center gap-3 text-slate-400">
                     <LuUser className="text-purple-500" />
-                    <span className="text-xs font-bold uppercase tracking-tighter">User Controlled</span>
+                    <span className="text-xs font-bold uppercase  ">User Controlled</span>
                 </div>
             </div>
 

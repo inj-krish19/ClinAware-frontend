@@ -58,10 +58,10 @@ const ReportAI = () => {
                 {/* LEFT COL: Control & Upload (5 Cols) */}
                 <div className="lg:col-span-5 space-y-6">
                     <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sky-500 font-bold text-sm tracking-widest uppercase">
+                        <div className="flex items-center gap-2 text-sky-500 font-bold text-sm   uppercase">
                             <LuBrain className="animate-pulse" /> Neural Diagnostic Engine
                         </div>
-                        <h1 className="text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">
+                        <h1 className="text-4xl font-black text-slate-900 dark:text-white uppercase  ">
                             Report <span className="text-sky-500">AI</span>
                         </h1>
                     </div>
@@ -131,34 +131,43 @@ const ReportAI = () => {
                             </motion.div>
                         ) : result ? (
                             <motion.div
-                                initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
-                                className="bg-slate-900 text-white rounded-[3rem] p-10 shadow-2xl border border-sky-500/20 relative overflow-hidden"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-[3rem] p-10 shadow-2xl border border-slate-200 dark:border-sky-500/20 relative overflow-hidden transition-colors duration-300"
                             >
-                                <div className="absolute top-0 right-0 p-10 opacity-10"><LuBrain size={120} /></div>
+                                {/* Background Icon - Adjusted opacity for light mode */}
+                                <div className="absolute top-0 right-0 p-10 opacity-[0.03] dark:opacity-10 pointer-events-none">
+                                    <LuBrain size={120} className="text-sky-500" />
+                                </div>
 
                                 <div className="relative z-10 space-y-8">
-                                    <div className="flex justify-between items-start">
-                                        <div className="bg-sky-500/20 text-sky-400 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-sky-500/30">
+                                    <div className="flex flex-wrap justify-between items-start gap-4">
+                                        <div className="bg-sky-500/10 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 px-4 py-1 rounded-full text-[10px] font-black uppercase border border-sky-500/20 dark:border-sky-500/30">
                                             Clinical Grade Summary
                                         </div>
-                                        <div className={`px-4 py-1 rounded-full text-[10px] font-black uppercase border ${result.risk_index === 'High' ? 'bg-red-500/20 text-red-400 border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                                        <div className={`px-4 py-1 rounded-full text-[10px] font-black uppercase border ${result.risk_index === 'High'
+                                            ? 'bg-red-500/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 border-red-500/20 dark:border-red-500/30'
+                                            : 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 dark:border-emerald-500/30'
                                             }`}>
                                             Risk: {result.risk_index}
                                         </div>
                                     </div>
 
                                     <div className="space-y-4">
-                                        <h2 className="text-2xl font-bold leading-tight">Patient Report Synthesis</h2>
-                                        <p className="text-slate-400 text-sm leading-relaxed">{result.summary}</p>
+                                        <h2 className="text-2xl font-black leading-tight uppercase">Patient Report Synthesis</h2>
+                                        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-medium">
+                                            {result.summary}
+                                        </p>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {result.markers?.map((m, i) => (
-                                            <div key={i} className="bg-white/5 border border-white/10 p-4 rounded-2xl flex flex-col justify-between">
-                                                <span className="text-[10px] text-slate-500 font-bold uppercase">{m.name}</span>
+                                            <div key={i} className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-4 rounded-2xl flex flex-col justify-between transition-colors">
+                                                <span className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase  r">{m.name}</span>
                                                 <div className="flex justify-between items-end mt-2">
-                                                    <span className="text-lg font-black">{m.value}</span>
-                                                    <span className={`text-[10px] font-bold ${m.status === 'High' ? 'text-red-400' : 'text-emerald-400'}`}>
+                                                    <span className="text-lg font-black text-slate-900 dark:text-white font-mono">{m.value}</span>
+                                                    <span className={`text-[10px] font-black uppercase ${m.status === 'High' ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'
+                                                        }`}>
                                                         ● {m.status}
                                                     </span>
                                                 </div>

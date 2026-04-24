@@ -43,9 +43,9 @@ function Success() {
                 <div className="space-y-4 mb-10">
                     <div className="flex items-center justify-center gap-2 mb-2">
                         <FcGoogle size={20} />
-                        <span className="text-xs font-black uppercase tracking-widest text-slate-400">Identity Verified</span>
+                        <span className="text-xs font-black uppercase   text-slate-400">Identity Verified</span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white  ">
                         Welcome to <span className="text-emerald-500">ClinAware</span>
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
@@ -78,7 +78,7 @@ function Success() {
                 </div>
 
                 <div className="mt-10 space-y-3">
-                    <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                    <div className="flex justify-between items-center text-[10px] font-bold uppercase   text-slate-400">
                         <span>Redirecting to Dashboard</span>
                         <span>{Math.ceil((10000 - (progress * 100)) / 1000)}s</span>
                     </div>

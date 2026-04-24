@@ -67,7 +67,7 @@ export default function SignIn() {
                 </div>
 
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white  ">
                         Welcome Back
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
@@ -85,12 +85,12 @@ export default function SignIn() {
 
                     <div className="flex items-center gap-4 py-2">
                         <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">or email</span>
+                        <span className="text-[10px] font-black text-slate-400 uppercase  ">or email</span>
                         <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
                     </div>
 
                     <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Email Address</label>
+                        <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase  ">Email Address</label>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-sky-500/20 focus-within:border-sky-500 transition-all">
                             <LuMail size={18} className="mr-3 text-slate-400" />
                             <input
@@ -104,7 +104,7 @@ export default function SignIn() {
 
                     <div className="space-y-1.5">
                         <div className="flex justify-between items-end mb-1">
-                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase tracking-wider">Password</label>
+                            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 ml-1 uppercase  ">Password</label>
                             <button className="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline">Forgot password?</button>
                         </div>
                         <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 bg-slate-50/50 dark:bg-slate-950/50 focus-within:ring-2 focus-within:ring-sky-500/20 focus-within:border-sky-500 transition-all">
