@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../context/auth';
+import { BACKEND_URL } from '../context/constants';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -22,6 +23,19 @@ export default function Navbar() {
     ];
 
     const toggleMenu = () => setIsOpen(!isOpen);
+
+    const logout = async () => {
+
+        let res = await fetch(`${BACKEND_URL}/auth/logout`, {
+            method: 'POST',
+            headers: { "content-type": "application/json" },
+            credentials: "include"
+        });
+
+        let response = await res.json();
+        window.location.href = '/';
+
+    }
 
     return (
         <nav className="sticky top-0 z-50 w-full border-b backdrop-blur-xl bg-white/70 dark:bg-[#020617]/70 border-slate-200/50 dark:border-slate-800/50 font-inter">
@@ -68,7 +82,7 @@ export default function Navbar() {
                                     <button onClick={() => navigate('/profile')} className="p-2 text-slate-400 hover:text-sky-500 transition-colors">
                                         <HiOutlineUserCircle size={26} />
                                     </button>
-                                    <button onClick={() => { /* logout logic */ }} className="size-10 flex items-center justify-center text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-xl transition-all">
+                                    <button onClick={() => { logout(); }} className="size-10 flex items-center justify-center text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-xl transition-all">
                                         <HiOutlineLogout size={20} />
                                     </button>
                                 </div>
@@ -132,7 +146,7 @@ export default function Navbar() {
                                     <button onClick={() => { navigate('/profile'); toggleMenu(); }} className="flex items-center gap-3 w-full p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-500 font-bold uppercase text-[10px]  ">
                                         <HiOutlineUserCircle size={20} /> Profile
                                     </button>
-                                    <button className="flex items-center gap-3 w-full p-4 rounded-2xl bg-rose-500/10 text-rose-500 font-bold uppercase text-[10px]  ">
+                                    <button className="flex items-center gap-3 w-full p-4 rounded-2xl bg-rose-500/10 text-rose-500 font-bold uppercase text-[10px] " onClick={() => { logout(); }} >
                                         <HiOutlineLogout size={20} /> Logout
                                     </button>
                                 </div>

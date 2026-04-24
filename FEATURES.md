@@ -1,0 +1,5 @@
+- Report Generation
+- Mail Veirifcation
+- Report Export on Mail
+- History Export mail and download
+- Mail Support on Login
