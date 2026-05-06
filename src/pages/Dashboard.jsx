@@ -3,14 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     LuLayoutDashboard, LuHistory, LuFileText, LuTrendingUp,
     LuShieldPlus, LuActivity, LuArrowUpRight, LuCircleAlert,
-    LuShield, LuWallet, LuZap, LuInfo
+    LuShield, LuWallet, LuZap, LuInfo,
+    LuMailCheck,
+    LuCloudDownload
 } from "react-icons/lu";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { BACKEND_URL } from '../context/constants';
+import Notify from '../components/Notify';
 
 export default function Dashboard() {
     const [data, setData] = useState([]);
     const [hoveredBar, setHoveredBar] = useState(null);
+
+    const [notifyDetails, setNotifyDetails] = useState(null);
 
     const fetchData = async () => {
         try {
@@ -26,6 +31,33 @@ export default function Dashboard() {
         }
     }
 
+    const handleDownloadReport = () => {
+        window.open(`${BACKEND_URL}/report/generate`, '_blank');
+    };
+
+
+    const handleEmailReport = async () => {
+        try {
+            let response = await fetch(`${BACKEND_URL}/report/email`, {
+                method: 'GET',
+                headers: { "content-type": "application/json" },
+                credentials: "include"
+            });
+            response = await response.json();
+
+            setNotifyDetails({
+                status: response.status,
+                message: response.data.message
+            });
+        } catch (error) {
+            setNotifyDetails({
+                status: error.response?.status || 500,
+                message: error.response?.data?.message || "Protocol Interrupted: Failed to send report."
+            });
+        }
+    };
+
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -34,6 +66,7 @@ export default function Dashboard() {
         <div className="min-h-screen bg-[#fafafa] dark:bg-[#020617] transition-colors duration-500 pb-12 font-inter">
             <main className="max-w-[1400px] mx-auto px-6 pt-10 space-y-10">
 
+                <Notify details={notifyDetails} onClose={() => setNotifyDetails(null)} />
                 {/* --- HEADER SECTION --- */}
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
@@ -69,6 +102,14 @@ export default function Dashboard() {
                     <ActionCard
                         icon={<LuFileText />} title="Report Vision" desc="Reports AI Reader & Assistant"
                         color="bg-emerald-500" onClick={() => window.location.href = '/vision'}
+                    />
+                    <ActionCard
+                        icon={<LuCloudDownload />} title="Download Report" desc="Generate Clinical PDF Report"
+                        color="bg-blue-600" onClick={handleDownloadReport}
+                    />
+                    <ActionCard
+                        icon={<LuMailCheck />} title="Mail Analytics" desc="Send Report to Registered Email"
+                        color="bg-indigo-600" onClick={handleEmailReport}
                     />
                 </div>
 
@@ -161,9 +202,9 @@ export default function Dashboard() {
                                 <span className="text-[10px] font-bold text-sky-500 uppercase   bg-sky-500/10 px-2 py-0.5 rounded-lg">IRDAI Regulated</span>
                             </div>
                             <div className="space-y-4">
-                                <InsurLink name="ICICI Lombard" type="Private Tier-1" rating="4.8" />
-                                <InsurLink name="HDFC ERGO" type="Market Leader" rating="4.7" />
-                                <InsurLink name="Star Health" type="Surgical Focus" rating="4.6" />
+                                <InsurLink name="ICICI Lombard" type="Private Tier-1" rating="4.8" link="https://www.icicilombard.com/health-insurance" />
+                                <InsurLink name="HDFC ERGO" type="Market Leader" rating="4.7" link="https://www.hdfcergo.com/health-insurance" />
+                                <InsurLink name="Star Health" type="Surgical Focus" rating="4.6" link="https://www.starhealth.in/" />
                             </div>
 
                             <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
@@ -255,9 +296,9 @@ function InsightCard({ icon, label, title, text }) {
     );
 }
 
-function InsurLink({ name, type, rating }) {
+function InsurLink({ name, type, link, rating }) {
     return (
-        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/40 rounded-[1.5rem] border border-transparent hover:border-sky-500/20 transition-all group cursor-pointer">
+        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/40 rounded-[1.5rem] border border-transparent hover:border-sky-500/20 transition-all group cursor-pointer" onClick={() => { window.location.href = link; }}>
             <div className="flex items-center gap-3">
                 <div className="size-10 bg-white dark:bg-slate-800 rounded-xl flex items-center justify-center shadow-sm group-hover:bg-sky-500 group-hover:text-white transition-colors duration-300">
                     <LuShieldPlus size={20} />

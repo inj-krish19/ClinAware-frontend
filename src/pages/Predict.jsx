@@ -110,18 +110,18 @@ export default function Predict() {
                             <label className=" font-poppins text-[10px] font-black  font-poppins text-slate-400 uppercase   ml-1">Patient Identity</label>
                             <div className="relative">
                                 <LuFingerprint className="absolute left-4 top-1/2 -translate-y-1/2  font-poppins text-slate-400" />
-                                <input type=" font-poppins text" name="name" value={form.name} onChange={handleChange} className="w-full pl-11 pr-5 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold transition-all" placeholder="Enter Full Name" />
+                                <input type=" font-poppins text" name="name" value={form.name} onChange={handleChange} className="w-full pl-11 pr-5 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold transition-all" placeholder="Enter Full Name" />
                             </div>
                         </div>
 
                         <div className="space-y-1">
                             <label className=" font-poppins text-[10px] font-black  font-poppins text-slate-400 uppercase   ml-1">Age</label>
-                            <input type="number" name="age" value={form.age} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold" />
+                            <input type="number" name="age" value={form.age} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold" />
                         </div>
 
                         <div className="space-y-1">
                             <label className=" font-poppins text-[10px] font-black  font-poppins text-slate-400 uppercase   ml-1">Monthly Income (₹)</label>
-                            <input type="number" name="income" value={form.income} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold" />
+                            <input type="number" name="income" value={form.income} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold" />
                         </div>
 
                         <div className="space-y-1">
@@ -132,18 +132,18 @@ export default function Predict() {
                             <motion.input
                                 animate={isBmiHighlighted ? { scale: [1, 1.02, 1], borderColor: ["#f1f5f9", "#10b981", "#f1f5f9"] } : {}}
                                 type="number" step="0.1" name="bmi" value={form.bmi} onChange={handleChange}
-                                className={`w-full px-5 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 outline-none dark: font-poppins text-white font-bold transition-colors ${isBmiHighlighted ? 'border-emerald-500' : 'border-transparent focus:border-emerald-500'}`}
+                                className={`w-full px-5 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800/50 border-2 outline-none dark:text-white text-black font-poppins font-bold transition-colors ${isBmiHighlighted ? 'border-emerald-500' : 'border-transparent focus:border-emerald-500'}`}
                             />
                         </div>
 
                         <div className="space-y-1">
                             <label className=" font-poppins text-[10px] font-black  font-poppins text-slate-400 uppercase   ml-1">Dependents</label>
-                            <input type="number" name="children" value={form.children} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold" />
+                            <input type="number" name="children" value={form.children} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold" />
                         </div>
 
                         <div className="space-y-1">
                             <label className=" font-poppins text-[10px] font-black  font-poppins text-slate-400 uppercase   ml-1">Sex</label>
-                            <select name="sex" value={form.sex} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold cursor-pointer">
+                            <select name="sex" value={form.sex} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold cursor-pointer">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -151,7 +151,7 @@ export default function Predict() {
 
                         <div className="space-y-1">
                             <label className=" font-poppins text-[10px] font-black  font-poppins text-slate-400 uppercase   ml-1">Region</label>
-                            <select name="region" value={form.region} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold cursor-pointer">
+                            <select name="region" value={form.region} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800/50 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold cursor-pointer">
                                 <option value="southwest">Southwest</option>
                                 <option value="southeast">Southeast</option>
                                 <option value="northwest">Northwest</option>
@@ -161,7 +161,7 @@ export default function Predict() {
 
                         <div className="md:col-span-2 p-5 rounded-2xl bg-rose-500/5 border border-rose-500/10 space-y-2">
                             <label className=" font-poppins text-[10px] font-black  font-poppins text-rose-500 uppercase   ml-1">Critical Risk History</label>
-                            <select name="chronic_condition" value={form.chronic_condition} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-transparent focus:border-rose-500 outline-none dark: font-poppins text-white font-bold cursor-pointer">
+                            <select name="chronic_condition" value={form.chronic_condition} onChange={handleChange} className="w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-transparent focus:border-rose-500 outline-none dark:text-white text-black font-poppins font-bold cursor-pointer">
                                 <option value="no">No Severe Conditions</option>
                                 <option value="yes">Chronic History (Cancer/Diabetes/Lung)</option>
                             </select>
@@ -186,8 +186,8 @@ export default function Predict() {
                                     {/* Header info */}
                                     <div className="flex justify-between items-start mb-8">
                                         <div>
-                                            <p className=" font-poppins text-[9px] font-black uppercase   opacity-60">Insurance Recommedations for</p>
-                                            <h4 className=" font-poppins text-3xl font-black uppercase  ">{submittedName}</h4>
+                                            <p className=" font-poppins text-black dark:text-white text-xs font-black uppercase opacity-60">Insurance Recommedations for</p>
+                                            <h4 className=" font-poppins text-black dark:text-white text-3xl font-black uppercase  ">{submittedName}</h4>
                                         </div>
                                         <LuShield size={32} className="opacity-40" />
                                     </div>
@@ -221,11 +221,11 @@ export default function Predict() {
                                         <motion.div
                                             initial={{ opacity: 0, scale: 0.95 }}
                                             animate={{ opacity: 1, scale: 1 }}
-                                            className="p-4 bg-rose-500/20 border border-rose-500/30 rounded-2xl flex gap-3 items-center"
+                                            className="text-black dark:text-white p-4 bg-rose-500/20 border border-rose-500/30 rounded-2xl flex gap-3 items-center"
                                         >
-                                            <LuTriangleAlert className=" font-poppins text-rose-200 shrink-0" size={18} />
+                                            <LuTriangleAlert className="text-black dark:text-white font-poppins text-rose-400 shrink-0" size={18} />
                                             <p className=" font-poppins text-[10px] font-medium leading-tight">
-                                                <span className="font-black uppercase block mb-0.5">Underwriting Warning</span>
+                                                <span className="text-black dark:text-white font-black uppercase block mb-0.5">Underwriting Warning</span>
                                                 High Risk profile detected. Insurance providers may mandate manual clinical review or reject coverage.
                                             </p>
                                         </motion.div>
@@ -261,7 +261,7 @@ export default function Predict() {
                         <motion.div initial={{ scale: 0.9, y: 20, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.9, y: 20, opacity: 0 }} className="relative bg-white dark:bg-slate-900 w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
 
                             <div className="flex justify-between items-center mb-8">
-                                <h3 className=" font-poppins text-lg font-black  font-poppins text-slate-900 dark: font-poppins text-white uppercase  ">BMI <span className=" font-poppins text-emerald-500">Analysis</span></h3>
+                                <h3 className=" font-poppins text-lg font-black  font-poppins text-slate-900 dark:text-white text-black font-poppins uppercase  ">BMI <span className=" font-poppins text-emerald-500">Analysis</span></h3>
                                 {!bmiApplying && <button onClick={() => setShowBmiCalc(false)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"><RxCross2 size={18} /></button>}
                             </div>
 
@@ -269,11 +269,11 @@ export default function Predict() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1">
                                         <label className=" font-poppins text-[9px] font-black  font-poppins text-slate-400 uppercase">Age</label>
-                                        <input type="number" name="age" value={form.age} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 outline-none dark: font-poppins text-white font-bold border border-transparent focus:border-emerald-500" />
+                                        <input type="number" name="age" value={form.age} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 outline-none dark:text-white text-black font-poppins font-bold border border-transparent focus:border-emerald-500" />
                                     </div>
                                     <div className="space-y-1">
                                         <label className=" font-poppins text-[9px] font-black  font-poppins text-slate-400 uppercase">Sex</label>
-                                        <select name="sex" value={form.sex} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 outline-none dark: font-poppins text-white font-bold">
+                                        <select name="sex" value={form.sex} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 outline-none dark:text-white text-black font-poppins font-bold">
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                         </select>
@@ -283,11 +283,11 @@ export default function Predict() {
                                 <div className="space-y-4 pt-2">
                                     <div className="space-y-1">
                                         <label className=" font-poppins text-[9px] font-black  font-poppins text-slate-500 uppercase">Height (cm)</label>
-                                        <input type="number" value={bmiInput.height} onChange={(e) => setBmiInput({ ...bmiInput, height: e.target.value })} className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold" placeholder="175" />
+                                        <input type="number" value={bmiInput.height} onChange={(e) => setBmiInput({ ...bmiInput, height: e.target.value })} className="w-full px-5 py-4 rounded-xl bg-slate-200 dark:bg-slate-800 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold" placeholder="175" />
                                     </div>
                                     <div className="space-y-1">
                                         <label className=" font-poppins text-[9px] font-black  font-poppins text-slate-500 uppercase">Weight (kg)</label>
-                                        <input type="number" value={bmiInput.weight} onChange={(e) => setBmiInput({ ...bmiInput, weight: e.target.value })} className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:border-emerald-500 outline-none dark: font-poppins text-white font-bold" placeholder="70" />
+                                        <input type="number" value={bmiInput.weight} onChange={(e) => setBmiInput({ ...bmiInput, weight: e.target.value })} className="w-full px-5 py-4 rounded-xl bg-slate-200 dark:bg-slate-800 border-2 border-transparent focus:border-emerald-500 outline-none dark:text-white text-black font-poppins font-bold" placeholder="70" />
                                     </div>
                                 </div>
 

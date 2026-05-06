@@ -39,7 +39,7 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {processedPlans.map((plan) => (
-                        <div key={plan.id} className={`relative p-10 rounded-[3.5rem] border-2 transition-all duration-500 ${plan.isRecommended ? 'border-purple-500 bg-purple-500/5 shadow-2xl shadow-purple-500/10 scale-[1.03]' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-60 hover:opacity-100'}`}>
+                        <div key={plan.id} className={`relative p-10 rounded-[3.5rem] border-2 transition-all duration-500 ${plan.isRecommended ? 'border-purple-500 bg-purple-500/5 shadow-2xl shadow-purple-500/10 scale-[1.03]' : 'border-slate-100 dark:border-slate-800 bg-slate-200 dark:bg-slate-900 opacity-90 hover:opacity-100'}`}>
                             {plan.isRecommended && (
                                 <div className="absolute -top-4 left-10 bg-purple-600 text-white text-[10px] font-black px-6 py-2 rounded-full flex items-center gap-2 shadow-xl z-10  ">
                                     <LuShieldCheck size={16} /> CLINAWARE PREFERRED
@@ -48,7 +48,7 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
 
                             <div className="flex justify-between items-start mb-8">
                                 <div>
-                                    <p className="text-[10px] font-black text-slate-400 uppercase   mb-1">{plan.company}</p>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase  mb-1">{plan.company}</p>
                                     <h4 className="text-2xl font-black dark:text-white   leading-none">{plan.name}</h4>
                                 </div>
                                 <div className="text-right">
@@ -81,7 +81,7 @@ export default function InsuranceMarket({ aiPredictedMonthly }) {
                     </h3>
                     <div className="space-y-5">
                         {externalLinks.map((link, i) => (
-                            <a key={i} href={link.url} target="_blank" rel="noreferrer" className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/50 rounded-[1.5rem] border border-transparent hover:border-purple-500 hover:bg-white transition-all group">
+                            <a key={i} href={link.url} target="_blank" rel="noreferrer" className="flex items-center justify-between p-5 bg-slate-200 dark:bg-slate-800 rounded-[1.5rem] border border-transparent hover:border-purple-500 hover:bg-white transition-all group">
                                 <span className="text-[11px] font-black dark:text-white uppercase  ">{link.name}</span>
                                 <LuExternalLink size={16} className="text-slate-400 group-hover:text-purple-500" />
                             </a>
