@@ -72,7 +72,7 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-8">
                     <p className="text-slate-400 text-[11px] font-bold uppercase   font-mono">
-                        © {currentYear} ClinAware // Precision Health OS
+                        © {currentYear} ClinAware // Precision Health APP
                     </p>
 
                     <div className="flex items-center gap-3">

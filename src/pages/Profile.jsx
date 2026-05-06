@@ -77,7 +77,7 @@ const Profile = () => {
                     <div className="absolute inset-0 border-4 border-t-sky-500 rounded-full animate-spin" />
                     <LuDna className="text-sky-500 animate-pulse" size={32} />
                 </div>
-                <p className="font-black text-sky-500 uppercase text-[10px] tracking-widest">ClinAware Secure Boot</p>
+                <p className="font-black text-sky-500 uppercase text-[10px]  ">ClinAware Secure Boot</p>
             </div>
         </div>
     );
@@ -116,7 +116,7 @@ const Profile = () => {
                         </div>
                         <div>
                             <h1 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic">{profile.name || 'User Identity'}</h1>
-                            <p className="text-slate-500 text-sm font-black uppercase tracking-tighter">Health Management Profile</p>
+                            <p className="text-slate-500 text-sm font-black uppercase  ">Health Management Profile</p>
                         </div>
                     </div>
                     <button
@@ -135,7 +135,7 @@ const Profile = () => {
                         <section className="bg-white dark:bg-slate-900/20 border border-slate-200 dark:border-slate-800/60 p-10 rounded-[3rem] space-y-8 relative overflow-hidden shadow-sm dark:shadow-none">
                             <div className="flex items-center gap-3 text-sky-600 dark:text-sky-500">
                                 <LuActivity size={20} />
-                                <h2 className="font-black text-[11px] uppercase tracking-widest">Bio-Identity Core</h2>
+                                <h2 className="font-black text-[11px] uppercase  ">Bio-Identity Core</h2>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -189,7 +189,7 @@ const Profile = () => {
 
                             <div className="flex items-center gap-3 text-sky-600 dark:text-sky-400 relative z-10">
                                 <LuDna size={22} className="animate-pulse" />
-                                <h2 className="font-black text-[11px] uppercase tracking-widest">Clinical Context</h2>
+                                <h2 className="font-black text-[11px] uppercase  ">Clinical Context</h2>
                             </div>
 
                             <div className="space-y-8 relative z-10">

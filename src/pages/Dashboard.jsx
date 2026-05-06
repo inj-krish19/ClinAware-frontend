@@ -185,7 +185,7 @@ export default function Dashboard() {
                                     <div>
                                         <div className="flex justify-between items-end mb-2">
                                             <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-mono italic">
-                                                Claim_Settlement_Ratio
+                                                Satisfication Ratio
                                             </span>
                                             <span className="text-xl font-black text-slate-900 dark:text-white font-jakarta">
                                                 94.2%

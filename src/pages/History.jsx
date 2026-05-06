@@ -59,7 +59,7 @@ export default function History() {
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full mb-6"
             />
-            <p className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-[0.3em]">Accessing Secure Archives</p>
+            <p className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500  ">Accessing Secure Archives</p>
         </div>
     );
 
@@ -75,10 +75,10 @@ export default function History() {
                                 <LuHistory className="text-emerald-500" size={28} />
                             </div>
                             <div>
-                                <h1 className="text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">
+                                <h1 className="text-5xl font-black text-slate-900 dark:text-white uppercase  ">
                                     Inference <span className="text-emerald-500">Registry</span>
                                 </h1>
-                                <p className="text-slate-500 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mt-1">Encrypted Audit Log • ClinAware Protocol</p>
+                                <p className="text-slate-500 dark:text-slate-500 text-[10px] font-bold uppercase   mt-1">Encrypted Audit Log • ClinAware Protocol</p>
                             </div>
                         </div>
                     </div>
@@ -107,8 +107,8 @@ export default function History() {
                         <div key={i} className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl flex items-center gap-5 shadow-sm dark:shadow-none">
                             <stat.icon className="text-emerald-500" size={24} />
                             <div>
-                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{stat.label}</p>
-                                <p className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.val}</p>
+                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase  ">{stat.label}</p>
+                                <p className="text-xl font-bold text-slate-900 dark:text-white  ">{stat.val}</p>
                             </div>
                         </div>
                     ))}
@@ -135,7 +135,7 @@ export default function History() {
                                                 {item.name ? item.name[0] : '?'}
                                             </div>
                                             <div className="space-y-1">
-                                                <h3 className="text-lg font-bold text-slate-900 dark:text-white uppercase tracking-tight">{item.name}</h3>
+                                                <h3 className="text-lg font-bold text-slate-900 dark:text-white uppercase  ">{item.name}</h3>
                                                 <div className="flex items-center gap-3 text-[10px] font-bold text-slate-500 uppercase">
                                                     <span>{item.age}Y</span>
                                                     <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
@@ -147,17 +147,17 @@ export default function History() {
                                         {/* Metrics Grid */}
                                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 flex-1 w-full py-4 lg:py-0 border-y lg:border-y-0 border-slate-100 dark:border-slate-800/50 lg:px-8">
                                             <div>
-                                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest mb-1">BMI Index</p>
+                                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-600 uppercase   mb-1">BMI Index</p>
                                                 <p className="text-md font-bold text-slate-700 dark:text-slate-300">{item.bmi?.toFixed(1) || '--'}</p>
                                             </div>
                                             <div>
-                                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest mb-1">Risk Profile</p>
+                                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-600 uppercase   mb-1">Risk Profile</p>
                                                 <span className={`text-[9px] font-black px-2 py-0.5 rounded border ${item.chronic_condition === 'yes' ? 'border-rose-500/30 text-rose-500 bg-rose-500/5' : 'border-emerald-500/30 text-emerald-500 bg-emerald-500/5'}`}>
                                                     {item.chronic_condition === 'yes' ? 'CHRONIC' : 'HEALTHY'}
                                                 </span>
                                             </div>
                                             <div className="sm:col-span-2">
-                                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest mb-1">Income</p>
+                                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-600 uppercase   mb-1">Income</p>
                                                 <p className="text-md font-bold text-slate-600 dark:text-slate-400 flex items-center gap-2">
                                                     <LuWallet size={12} /> {item.income}
                                                 </p>
@@ -167,8 +167,8 @@ export default function History() {
                                         {/* Financial Outcome */}
                                         <div className="flex items-center justify-between lg:justify-end w-full lg:w-auto gap-10">
                                             <div className="text-right">
-                                                <p className="text-[9px] font-black text-emerald-600 dark:text-emerald-500 uppercase tracking-[0.2em] mb-1">Recommended Premium</p>
-                                                <p className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">
+                                                <p className="text-[9px] font-black text-emerald-600 dark:text-emerald-500 uppercase   mb-1">Recommended Premium</p>
+                                                <p className="text-2xl font-black text-slate-900 dark:text-white  ">
                                                     ₹{item.predictions?.regressor?.toLocaleString('en-IN') || '0'}
                                                 </p>
                                             </div>
@@ -219,7 +219,7 @@ export default function History() {
                         ) : (
                             <div className="h-96 border border-slate-300 dark:border-slate-800 border-dashed rounded-[3rem] flex flex-col items-center justify-center p-12 text-center bg-white dark:bg-slate-900/20">
                                 <LuShieldCheck size={48} className="text-slate-300 dark:text-slate-800 mb-4" />
-                                <p className="text-[11px] font-black uppercase text-slate-400 dark:text-slate-600 tracking-[0.3em]">Registry Empty</p>
+                                <p className="text-[11px] font-black uppercase text-slate-400 dark:text-slate-600  ">Registry Empty</p>
                             </div>
                         )}
                     </AnimatePresence>
@@ -234,7 +234,7 @@ function ModelMetric({ label, value, sub }) {
         <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/50 space-y-2 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-2">
                 <LuCpu className="text-emerald-500/50" size={14} />
-                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</p>
+                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase  ">{label}</p>
             </div>
             <p className="text-2xl font-black text-slate-900 dark:text-white">₹{value?.toLocaleString() || '0'}</p>
             <p className="text-[9px] font-bold text-slate-400 dark:text-slate-700 uppercase">{sub}</p>

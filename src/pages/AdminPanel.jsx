@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { LuUsers, LuShield, LuActivity, LuTrash2, LuChevronRight, LuLayoutDashboard, LuLoader, LuClipboardList, LuMicroscope, LuSun, LuMoon } from 'react-icons/lu';
+import { LuUsers, LuShield, LuActivity, LuChevronRight, LuLayoutDashboard, LuLoader, LuClipboardList, LuMicroscope, LuSun, LuMoon, LuLock, LuTerminal } from 'react-icons/lu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BACKEND_URL } from '../context/constants';
 
 const AdminPanel = () => {
+    // --- AUTHENTICATION STATE ---
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [adminInput, setAdminInput] = useState("");
+    const [authError, setAuthError] = useState(false);
+
+    // --- DASHBOARD STATE ---
     const [stats, setStats] = useState({ users: [], total_users: 0, total_clinical_vitals: 0, total_ai_reports: 0 });
     const [selectedUser, setSelectedUser] = useState(null);
     const [userHistory, setUserHistory] = useState(null);
@@ -13,15 +19,30 @@ const AdminPanel = () => {
     const ADMIN_SECRET = "CLINAWARE_ADMIN";
 
     useEffect(() => {
-        loadStats();
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') setIsDark(false);
-    }, []);
+
+        // Only load data if already authenticated
+        if (isAuthenticated) {
+            loadStats();
+        }
+    }, [isAuthenticated]);
 
     useEffect(() => {
         document.documentElement.classList.toggle('dark', isDark);
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }, [isDark]);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        if (adminInput === ADMIN_SECRET) {
+            setIsAuthenticated(true);
+            setAuthError(false);
+        } else {
+            setAuthError(true);
+            setAdminInput("");
+        }
+    };
 
     const loadStats = async () => {
         try {
@@ -61,10 +82,68 @@ const AdminPanel = () => {
         }
     };
 
+    // --- RENDER LOGIN SCREEN ---
+    if (!isAuthenticated) {
+        return (
+            <div className="min-h-screen bg-[#030712] flex items-center justify-center p-6 font-poppins">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="w-full max-w-md bg-slate-900 border border-slate-800 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden"
+                >
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-sky-500 to-transparent opacity-50" />
+
+                    <div className="flex flex-col items-center text-center space-y-6">
+                        <div className="p-4 bg-sky-500/10 rounded-2xl text-sky-500">
+                            <LuShield size={32} />
+                        </div>
+
+                        <div>
+                            <h2 className="text-2xl font-black text-white uppercase italic  ">
+                                Admin <span className="text-sky-500">Nexus</span>
+                            </h2>
+                            <p className="text-[10px] text-slate-500 font-bold mt-2 uppercase  ">Restricted Access Area</p>
+                        </div>
+
+                        <form onSubmit={handleLogin} className="w-full space-y-4">
+                            <div className="relative">
+                                <LuLock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                <input
+                                    type="password"
+                                    placeholder="ENTER SYSTEM SECRET..."
+                                    value={adminInput}
+                                    onChange={(e) => setAdminInput(e.target.value)}
+                                    className={`w-full bg-black/50 border ${authError ? 'border-rose-500/50' : 'border-slate-800'} text-white text-xs font-bold py-4 pl-12 pr-4 rounded-2xl focus:outline-none focus:border-sky-500/50 transition-all  `}
+                                />
+                            </div>
+
+                            {authError && (
+                                <motion.p
+                                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                                    className="text-[10px] text-rose-500 font-black uppercase"
+                                >
+                                    Invalid Credentials. Access Denied.
+                                </motion.p>
+                            )}
+
+                            <button
+                                type="submit"
+                                className="w-full bg-white text-black font-black text-xs py-4 rounded-2xl hover:bg-sky-500 hover:text-white transition-all uppercase flex items-center justify-center gap-2"
+                            >
+                                <LuTerminal size={16} /> Authenticate
+                            </button>
+                        </form>
+                    </div>
+                </motion.div>
+            </div>
+        );
+    }
+
+    // --- RENDER ACTUAL DASHBOARD (Authenticated) ---
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#030712] text-slate-600 dark:text-slate-300 p-6 md:p-10 font-poppins transition-colors duration-300">
+            {/* ... rest of your existing return code starts here ... */}
             <div className="max-w-7xl mx-auto space-y-10">
-
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <div>
                         <h1 className="text-4xl font-black text-slate-900 dark:text-white uppercase italic">
@@ -80,10 +159,18 @@ const AdminPanel = () => {
                             {isDark ? <LuSun size={20} /> : <LuMoon size={20} />}
                         </button>
                         <StatCard icon={<LuUsers />} label="Users" val={stats.total_users} color="text-violet-500 dark:text-blue-400" />
+                        {/* Logout Option */}
+                        <button
+                            onClick={() => setIsAuthenticated(false)}
+                            className="text-[10px] font-black text-rose-500 border border-rose-500/20 px-4 py-3 rounded-xl hover:bg-rose-500/10 transition-all uppercase"
+                        >
+                            Terminate Session
+                        </button>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    {/* ... (The rest of your grid code remains identical) ... */}
                     <div className="lg:col-span-4 bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800/50 rounded-[2.5rem] p-6 h-[700px] flex flex-col shadow-sm">
                         <div className="flex items-center justify-between mb-6 px-2">
                             <h3 className="text-xs font-black uppercase text-slate-400 flex items-center gap-2">
@@ -91,7 +178,6 @@ const AdminPanel = () => {
                             </h3>
                             <span className="text-[10px] bg-violet-500/10 text-violet-600 dark:bg-sky-500/10 dark:text-sky-500 px-2 py-1 rounded-md border border-violet-200 dark:border-sky-500/20 font-bold">LIVE</span>
                         </div>
-
                         <div className="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar">
                             {stats.users.length > 0 ? (
                                 stats.users.map(u => (
@@ -121,20 +207,13 @@ const AdminPanel = () => {
                     <div className="lg:col-span-8">
                         <AnimatePresence mode="wait">
                             {loading ? (
-                                <motion.div
-                                    key="loader"
-                                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                                    className="h-[500px] flex flex-col items-center justify-center text-violet-600 dark:text-sky-500 space-y-4"
-                                >
+                                <motion.div key="loader" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-[500px] flex flex-col items-center justify-center text-violet-600 dark:text-sky-500 space-y-4">
                                     <LuLoader size={40} className="animate-spin" />
                                     <p className="text-[10px] font-black uppercase">Decrypting Records...</p>
                                 </motion.div>
                             ) : userHistory ? (
-                                <motion.div
-                                    key="content"
-                                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-8"
-                                >
+                                <motion.div key="content" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
+                                    {/* Insurance Section */}
                                     <div className="bg-white dark:bg-slate-900/40 rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800/50 shadow-sm">
                                         <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase mb-6 flex items-center gap-2">
                                             <LuShield className="text-fuchsia-500" /> Medical Cost Insurance
@@ -157,7 +236,7 @@ const AdminPanel = () => {
                                             )}
                                         </div>
                                     </div>
-
+                                    {/* Vitals Section */}
                                     <div className="bg-white dark:bg-slate-900/40 rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800/50 shadow-sm">
                                         <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase mb-6 flex items-center gap-2">
                                             <LuActivity className="text-emerald-500" /> Vitals Intelligence
@@ -187,47 +266,35 @@ const AdminPanel = () => {
                                             )}
                                         </div>
                                     </div>
-
+                                    {/* Reports Section */}
                                     <div className="bg-white dark:bg-slate-900/40 rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800/50 shadow-sm">
                                         <div className="flex justify-between items-center mb-6">
                                             <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase flex items-center gap-2">
                                                 <LuMicroscope className="text-violet-600 dark:text-sky-500" /> Neural Interpretations
                                             </h4>
-                                            <span className="text-[9px] text-slate-400 dark:text-slate-600 font-bold uppercase">
-                                                {userHistory.reports?.length || 0} Records Found
-                                            </span>
+                                            <span className="text-[9px] text-slate-400 dark:text-slate-600 font-bold uppercase">{userHistory.reports?.length || 0} Records Found</span>
                                         </div>
-
                                         <div className="space-y-4">
                                             {userHistory.reports && userHistory.reports.length > 0 ? (
                                                 userHistory.reports.map((report, idx) => (
                                                     <details key={idx} className="group bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/5 rounded-2xl overflow-hidden transition-all hover:border-violet-400 dark:hover:border-sky-500/30">
                                                         <summary className="flex justify-between items-center p-5 cursor-pointer list-none">
                                                             <div className="flex items-center gap-4">
-                                                                <div className="p-2 bg-violet-500/10 dark:bg-sky-500/10 rounded-lg">
-                                                                    <LuClipboardList className="text-violet-600 dark:text-sky-500" size={18} />
-                                                                </div>
+                                                                <div className="p-2 bg-violet-500/10 dark:bg-sky-500/10 rounded-lg"><LuClipboardList className="text-violet-600 dark:text-sky-500" size={18} /></div>
                                                                 <div>
                                                                     <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{report.filename || "Medical_Report.pdf"}</p>
                                                                     <p className="text-[10px] text-slate-400 dark:text-slate-500">{new Date(report.timestamp).toLocaleString()}</p>
                                                                 </div>
                                                             </div>
                                                             <div className="flex items-center gap-4">
-                                                                <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase border ${report.analysis?.risk_index === 'High'
-                                                                    ? 'bg-rose-500/10 text-rose-600 border-rose-200 dark:bg-red-500/20 dark:text-red-400 dark:border-red-500/30'
-                                                                    : 'bg-emerald-500/10 text-emerald-600 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30'
-                                                                    }`}>
-                                                                    Risk: {report.analysis?.risk_index || 'N/A'}
-                                                                </span>
+                                                                <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase border ${report.analysis?.risk_index === 'High' ? 'bg-rose-500/10 text-rose-600 border-rose-200 dark:bg-red-500/20 dark:text-red-400 dark:border-red-500/30' : 'bg-emerald-500/10 text-emerald-600 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30'}`}>Risk: {report.analysis?.risk_index || 'N/A'}</span>
                                                                 <LuChevronRight className="text-slate-400 group-open:rotate-90 transition-transform" />
                                                             </div>
                                                         </summary>
                                                         <div className="px-6 pb-6 pt-2 space-y-6 border-t border-slate-200 dark:border-white/5 bg-white/50 dark:bg-slate-900/20">
                                                             <div className="space-y-2">
                                                                 <h5 className="text-[9px] font-black text-violet-600 dark:text-sky-500 uppercase">AI Synthesized Summary</h5>
-                                                                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                                                                    {report.analysis?.summary || "No summary available."}
-                                                                </p>
+                                                                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{report.analysis?.summary || "No summary available."}</p>
                                                             </div>
                                                             <div className="space-y-3">
                                                                 <h5 className="text-[9px] font-black text-violet-600 dark:text-sky-500 uppercase">Biomarkers</h5>
@@ -237,9 +304,7 @@ const AdminPanel = () => {
                                                                             <span className="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase">{marker.name}</span>
                                                                             <div className="flex justify-between items-end">
                                                                                 <span className="text-sm font-black text-slate-800 dark:text-white">{marker.value}</span>
-                                                                                <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${marker.status === 'High' ? 'text-rose-600 bg-rose-50 dark:text-red-400 dark:bg-red-400/10' : 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-400/10'}`}>
-                                                                                    {marker.status}
-                                                                                </span>
+                                                                                <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${marker.status === 'High' ? 'text-rose-600 bg-rose-50 dark:text-red-400 dark:bg-red-400/10' : 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-400/10'}`}>{marker.status}</span>
                                                                             </div>
                                                                         </div>
                                                                     ))}
@@ -270,6 +335,7 @@ const AdminPanel = () => {
     );
 };
 
+// ... StatCard remains the same ...
 const StatCard = ({ icon, label, val, color }) => (
     <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 p-5 rounded-[1.5rem] flex items-center gap-5 min-w-[140px] shadow-sm dark:shadow-lg">
         <div className={`${color} text-2xl opacity-90`}>{icon}</div>
