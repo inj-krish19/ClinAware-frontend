@@ -5,7 +5,9 @@ import {
     LuShieldPlus, LuActivity, LuArrowUpRight, LuCircleAlert,
     LuShield, LuWallet, LuZap, LuInfo,
     LuMailCheck,
-    LuCloudDownload
+    LuCloudDownload,
+    LuFileSpreadsheet,
+    LuSendHorizontal
 } from "react-icons/lu";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { BACKEND_URL } from '../context/constants';
@@ -46,13 +48,41 @@ export default function Dashboard() {
             response = await response.json();
 
             setNotifyDetails({
-                status: response.status,
-                message: response.data.message
+                status: response.code,
+                message: response.message
             });
         } catch (error) {
             setNotifyDetails({
                 status: error.response?.status || 500,
                 message: error.response?.data?.message || "Protocol Interrupted: Failed to send report."
+            });
+        }
+    };
+
+
+    const handleDownloadCSV = () => {
+        window.open(`${BACKEND_URL}/report/download-csv`, '_blank');
+    };
+
+
+    const handleEmailCSV = async () => {
+        try {
+            let response = await fetch(`${BACKEND_URL}/report/mail-csv`, {
+                method: 'GET',
+                headers: { "content-type": "application/json" },
+                credentials: "include"
+            });
+
+            const data = await response.json();
+
+            setNotifyDetails({
+                status: data.code,
+                message: data.message
+            });
+        } catch (error) {
+            setNotifyDetails({
+                status: 500,
+                message: "Data Link Error: Failed to dispatch CSV ledger."
             });
         }
     };
@@ -108,8 +138,16 @@ export default function Dashboard() {
                         color="bg-blue-600" onClick={handleDownloadReport}
                     />
                     <ActionCard
-                        icon={<LuMailCheck />} title="Mail Analytics" desc="Send Report to Registered Email"
+                        icon={<LuMailCheck />} title="Mail Report" desc="Send Report to Registered Email"
                         color="bg-indigo-600" onClick={handleEmailReport}
+                    />
+                    <ActionCard
+                        icon={<LuFileSpreadsheet />} title="Export CSV" desc="Download History Spreadsheet"
+                        color="bg-emerald-600" onClick={handleDownloadCSV}
+                    />
+                    <ActionCard
+                        icon={<LuSendHorizontal />} title="Mail CSV" desc="Send Spreadsheet to Registered Email"
+                        color="bg-teal-600" onClick={handleEmailCSV}
                     />
                 </div>
 
